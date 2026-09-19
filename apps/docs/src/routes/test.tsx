@@ -1,8 +1,15 @@
 import {
-    Calendar,
+    createSignal,
+} from 'solid-js'
+
+import {
+    DatePicker,
 } from '@solidcn/ui'
 
 export default function Test() {
+    const [date, setDate] =
+        createSignal<Date>()
+
     return (
         <main
             style={{
@@ -11,7 +18,7 @@ export default function Test() {
                 margin: '0 auto',
             }}
         >
-            <h1>Calendar</h1>
+            <h1>DatePicker</h1>
 
             <p
                 style={{
@@ -20,18 +27,34 @@ export default function Test() {
                     'margin-bottom': '1.5rem',
                 }}
             >
-                Select a date, navigate between
-                months, and test keyboard navigation.
+                Select a date using the calendar
+                popover.
             </p>
 
-            <Calendar
-                onSelect={(date) => {
+            <DatePicker
+                value={date()}
+                onChange={(value) => {
+                    setDate(value)
+
                     console.log(
                         'Selected:',
-                        date.toDateString(),
+                        value?.toDateString(),
                     )
                 }}
             />
+
+            <p
+                style={{
+                    'margin-top': '1.5rem',
+                    color:
+                        'var(--scn-muted-foreground)',
+                }}
+            >
+                Selected:{' '}
+                {date()
+                    ? date()!.toDateString()
+                    : 'None'}
+            </p>
         </main>
     )
 }

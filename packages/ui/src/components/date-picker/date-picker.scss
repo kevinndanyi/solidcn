@@ -1,0 +1,48 @@
+.scn-date-picker {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.scn-date-picker__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scn-space-2);
+  min-width: 12rem;
+  height: 2.5rem;
+  padding: 0 var(--scn-space-3);
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-md);
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+  font: inherit;
+  font-size: var(--scn-font-size-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--scn-transition-fast),
+    border-color var(--scn-transition-fast),
+    box-shadow var(--scn-transition-fast);
+
+  &:hover {
+    background: var(--scn-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+}
+
+.scn-date-picker__trigger--placeholder {
+  color: var(--scn-muted-foreground);
+}
+
+.scn-date-picker__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.scn-date-picker__content {
+  padding: 0;
+}

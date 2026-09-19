@@ -3,7 +3,6 @@ import {
   createMemo,
   createSignal,
   For,
-  Show,
   splitProps,
 } from 'solid-js'
 import { cx } from '@solidcn/cx'
@@ -22,6 +21,7 @@ export interface CalendarProps
   minDate?: Date
   maxDate?: Date
   disabled?: (date: Date) => boolean
+  
 }
 
 const WEEKDAYS = [
@@ -107,8 +107,7 @@ const createMonthDays = (date: Date) => {
     )
   }
 
-  const remaining =
-    42 - days.length
+  const remaining = 42 - days.length
 
   for (
     let day = 1;
@@ -229,6 +228,24 @@ export const Calendar: Component<
     }
   }
 
+  const focusDate = (date: Date) => {
+    const timestamp = date.getTime()
+
+    requestAnimationFrame(() => {
+      const calendar =
+        document.querySelector(
+          '.scn-calendar',
+        )
+
+      const button =
+        calendar?.querySelector<HTMLButtonElement>(
+          `[data-timestamp="${timestamp}"]`,
+        )
+
+      button?.focus()
+    })
+  }
+
   const handleKeyDown: JSX.EventHandler<
     HTMLButtonElement,
     KeyboardEvent
@@ -267,15 +284,36 @@ export const Calendar: Component<
         break
 
       case 'Home':
-        nextDate.setDate(1)
+        nextDate.setDate(
+          nextDate.getDate() -
+          nextDate.getDay(),
+        )
         break
 
       case 'End':
-        nextDate.setMonth(
-          nextDate.getMonth() + 1,
-          0,
+        nextDate.setDate(
+          nextDate.getDate() +
+          (6 - nextDate.getDay()),
         )
         break
+
+      case 'PageUp':
+        nextDate.setMonth(
+          nextDate.getMonth() - 1,
+        )
+        break
+
+      case 'PageDown':
+        nextDate.setMonth(
+          nextDate.getMonth() + 1,
+        )
+        break
+
+      case 'Enter':
+      case ' ':
+        event.preventDefault()
+        selectDate(currentDate)
+        return
 
       default:
         return
@@ -283,26 +321,28 @@ export const Calendar: Component<
 
     event.preventDefault()
 
-    setMonth(
-      new Date(
-        nextDate.getFullYear(),
-        nextDate.getMonth(),
-        1,
-      ),
+    if (isDisabled(nextDate)) {
+      return
+    }
+
+    const targetMonth = new Date(
+      nextDate.getFullYear(),
+      nextDate.getMonth(),
+      1,
     )
 
-    requestAnimationFrame(() => {
-      const button =
-        event.currentTarget
-          .closest(
-            '.scn-calendar',
-          )
-          ?.querySelector<HTMLButtonElement>(
-            `[data-timestamp="${nextDate.getTime()}"]`,
-          )
+    const currentMonth = month()
 
-      button?.focus()
-    })
+    if (
+      targetMonth.getFullYear() !==
+      currentMonth.getFullYear() ||
+      targetMonth.getMonth() !==
+      currentMonth.getMonth()
+    ) {
+      setMonth(targetMonth)
+    }
+
+    focusDate(nextDate)
   }
 
   return (
@@ -346,9 +386,7 @@ export const Calendar: Component<
       >
         <For each={WEEKDAYS}>
           {(weekday) => (
-            <span>
-              {weekday}
-            </span>
+            <span>{weekday}</span>
           )}
         </For>
       </div>
@@ -356,9 +394,7 @@ export const Calendar: Component<
       <div
         class="scn-calendar__grid"
         role="grid"
-        aria-label={formatMonth(
-          month(),
-        )}
+        aria-label={formatMonth(month())}
       >
         <For each={days()}>
           {(date) => {
