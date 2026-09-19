@@ -3,6 +3,8 @@ import {
     createUniqueId,
     Show,
     splitProps,
+    onMount,
+    onCleanup,
 } from 'solid-js'
 import { cx } from '@solidcn/cx'
 
@@ -38,6 +40,14 @@ export const CommandItem: Component<
         normalizedValue.includes(
             command.search().toLowerCase(),
         )
+
+    onMount(() => {
+        command.registerItem(local.value)
+
+        onCleanup(() => {
+            command.unregisterItem(local.value)
+        })
+    })
 
     const handleClick = () => {
         if (local.disabled || !matches()) return

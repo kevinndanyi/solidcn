@@ -21,8 +21,21 @@ export const CommandEmpty: Component<
 
     const command = useCommand()
 
+    const hasResults = () => {
+        const search =
+            command.search().toLowerCase()
+
+        if (!search) {
+            return command.items().length > 0
+        }
+
+        return command.items().some((item) =>
+            item.toLowerCase().includes(search),
+        )
+    }
+
     return (
-        <Show when={command.search()}>
+        <Show when={!hasResults()}>
             <div
                 {...rest}
                 class={cx(

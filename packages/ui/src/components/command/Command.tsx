@@ -12,9 +12,16 @@ import './command.scss'
 interface CommandContextValue {
   search: () => string
   setSearch: (value: string) => void
+
   selected: () => string | undefined
   setSelected: (value: string | undefined) => void
+
   select: (value: string) => void
+
+  registerItem: (value: string) => void
+  unregisterItem: (value: string) => void
+
+  items: () => string[]
 }
 
 const CommandContext =
@@ -54,6 +61,26 @@ export const Command: Component<CommandProps> = (
   const [selected, setSelected] =
     createSignal<string>()
 
+  const [items, setItems] = createSignal<
+    string[]
+  >([])
+
+  const registerItem = (value: string) => {
+    setItems((current) => {
+      if (current.includes(value)) {
+        return current
+      }
+
+      return [...current, value]
+    })
+  }
+
+  const unregisterItem = (value: string) => {
+    setItems((current) =>
+      current.filter((item) => item !== value),
+    )
+  }
+
   const select = (value: string) => {
     setSelected(value)
     local.onSelect?.(value)
@@ -65,6 +92,9 @@ export const Command: Component<CommandProps> = (
     selected,
     setSelected,
     select,
+    registerItem,
+    unregisterItem,
+    items,
   }
 
   return (
