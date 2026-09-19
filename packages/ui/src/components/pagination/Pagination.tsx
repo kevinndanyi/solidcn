@@ -1,0 +1,32 @@
+import type { Component, JSX } from 'solid-js'
+import { splitProps } from 'solid-js'
+import { cx } from '@solidcn/cx'
+
+import './pagination.scss'
+
+export interface PaginationProps
+  extends JSX.HTMLAttributes<HTMLElement> {
+  class?: string
+}
+
+export const Pagination: Component<
+  PaginationProps
+> = (props) => {
+  const [local, rest] = splitProps(props, [
+    'class',
+    'children',
+  ])
+
+  return (
+    <nav
+      {...rest}
+      aria-label="Pagination"
+      class={cx(
+        'scn-pagination',
+        local.class,
+      )}
+    >
+      {local.children}
+    </nav>
+  )
+}

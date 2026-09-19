@@ -1,51 +1,60 @@
-import { Label, Radio } from '@solidcn/ui'
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@solidcn/ui'
 
 export default function Test() {
     return (
-        <div class="test-page">
-            <div class="test-section">
-                <Label>Choose a plan</Label>
+        <main style={{ padding: '2rem' }}>
+            <h1>Table</h1>
 
-                <div class="test-options">
-                    <label class="test-option">
-                        <Radio
-                            name="plan"
-                            value="free"
-                        />
-                        <span>Free</span>
-                    </label>
+            <Table>
+                <TableCaption>Recent trades</TableCaption>
 
-                    <label class="test-option">
-                        <Radio
-                            name="plan"
-                            value="pro"
-                            checked
-                        />
-                        <span>Pro</span>
-                    </label>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Symbol</TableHead>
+                        <TableHead>Direction</TableHead>
+                        <TableHead>Entry</TableHead>
+                        <TableHead>Result</TableHead>
+                    </TableRow>
+                </TableHeader>
 
-                    <label class="test-option">
-                        <Radio
-                            name="plan"
-                            value="enterprise"
-                        />
-                        <span>Enterprise</span>
-                    </label>
-                </div>
-            </div>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>EURUSD</TableCell>
+                        <TableCell>Long</TableCell>
+                        <TableCell>1.1742</TableCell>
+                        <TableCell>+2R</TableCell>
+                    </TableRow>
 
-            <div class="test-section">
-                <Label>Disabled option</Label>
+                    <TableRow>
+                        <TableCell>GBPUSD</TableCell>
+                        <TableCell>Short</TableCell>
+                        <TableCell>1.3528</TableCell>
+                        <TableCell>-1R</TableCell>
+                    </TableRow>
 
-                <label class="test-option">
-                    <Radio
-                        name="disabled-example"
-                        value="disabled"
-                        disabled
-                    />
-                    <span>Unavailable</span>
-                </label>
-            </div>
-        </div>
+                    <TableRow>
+                        <TableCell>XAUUSD</TableCell>
+                        <TableCell>Long</TableCell>
+                        <TableCell>3648.20</TableCell>
+                        <TableCell>+3R</TableCell>
+                    </TableRow>
+
+                    <TableRow>
+                        <TableCell>NAS100</TableCell>
+                        <TableCell>Short</TableCell>
+                        <TableCell>24,850</TableCell>
+                        <TableCell>+1.5R</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </main>
     )
 }

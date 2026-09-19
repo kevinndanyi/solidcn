@@ -25,7 +25,23 @@ export default function App() {
               <a href="/test" class="app-nav__link">
                 Test
               </a>
+              <button
+                type="button"
+                onClick={() => {
+                  const html = document.documentElement
+                  const isDark = html.dataset.theme === 'dark'
+
+                  if (isDark) {
+                    delete html.dataset.theme
+                  } else {
+                    html.dataset.theme = 'dark'
+                  }
+                }}
+              >
+                Toggle theme
+              </button>
             </nav>
+            
           </header>
 
           <main class="app-main">

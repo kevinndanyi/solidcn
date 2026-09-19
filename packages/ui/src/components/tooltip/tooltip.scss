@@ -1,0 +1,80 @@
+.scn-tooltip {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+}
+
+.scn-tooltip__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: inherit;
+
+  border: 0;
+  padding: 0;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+    border-radius: var(--scn-radius-sm);
+  }
+}
+
+.scn-tooltip__content {
+  position: absolute;
+  z-index: 50;
+
+  left: 50%;
+  bottom: calc(100% + var(--scn-space-2));
+
+  transform: translateX(-50%);
+
+  width: max-content;
+  max-width: 16rem;
+
+  padding: var(--scn-space-2) var(--scn-space-3);
+
+  background: var(--scn-foreground);
+  color: var(--scn-background);
+
+  border-radius: var(--scn-radius-sm);
+
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-xs);
+  font-weight: var(--scn-weight-medium);
+  line-height: 1.4;
+
+  box-shadow:
+    0 4px 6px rgb(0 0 0 / 0.1),
+    0 1px 3px rgb(0 0 0 / 0.08);
+
+  pointer-events: none;
+
+  animation: scn-tooltip-in
+    var(--scn-duration-fast)
+    var(--scn-ease-standard);
+}
+
+@keyframes scn-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scn-tooltip__content {
+    animation: none;
+  }
+}

@@ -1,159 +1,379 @@
-# Turborepo starter
+# SolidCN
 
-This Turborepo starter is maintained by the Turborepo core team.
+A SolidJS component library built with **Sass**, **semantic design tokens**, and **native web primitives**.
 
-## Using this example
+SolidCN is inspired by the philosophy of [shadcn/ui]: components are designed to be understandable, composable, accessible, and eventually distributed as source code through a registry.
 
-Run the following command:
+## Philosophy
 
-```sh
-npx create-turbo@latest
+SolidCN is built around a simple idea:
+
+```text
+Raw palettes
+     ↓
+Configuration
+     ↓
+Semantic design tokens
+     ↓
+Components
+     ↓
+Applications
 ```
 
-## What's inside?
+Components should depend on semantic tokens rather than hardcoded colors.
 
-This Turborepo includes the following packages/apps:
+For example:
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```scss
+background: var(--scn-primary);
+color: var(--scn-primary-foreground);
+border-color: var(--scn-border);
 ```
 
-Without global `turbo`, use your package manager:
+rather than directly using palette values.
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+The goal is to make the design system configurable without rewriting individual components.
+
+## Why SolidCN?
+
+SolidCN is designed specifically for SolidJS.
+
+It does not attempt to copy React component APIs directly. Components should feel natural in Solid while preserving native HTML behavior wherever possible.
+
+Core principles:
+
+* SolidJS-native APIs
+* Sass instead of Tailwind
+* Semantic CSS variables
+* Configurable color palettes
+* Light and dark themes
+* Native HTML primitives
+* Accessibility-first interactions
+* Small, composable components
+* Source ownership
+* Registry-driven distribution
+
+## Repository Structure
+
+```text
+solidcn/
+├── apps/
+│   └── docs/
+│
+├── packages/
+│   ├── cx/
+│   ├── styles/
+│   └── ui/
+│
+├── registry/
+│   └── # planned
+│
+├── package.json
+├── pnpm-workspace.yaml
+└── turbo.json
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+### `apps/docs`
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+The documentation and development application.
 
-```sh
-turbo build --filter=docs
+It currently serves two purposes:
+
+1. Documentation
+2. Component development and visual testing
+
+The `/test` route is our dedicated component playground.
+
+```text
+/test
 ```
 
-Without global `turbo`:
+Components are developed, type-checked, and visually tested there before being considered complete.
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+### `packages/cx`
+
+A small utility for composing conditional class names.
+
+```ts
+cx(
+  'scn-button',
+  condition && 'active',
+  customClass,
+)
 ```
 
-### Develop
+### `packages/styles`
 
-To develop all apps and packages, run the following command:
+The SolidCN design system.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+It contains:
 
-```sh
-cd my-turborepo
-turbo dev
+* Color palettes
+* Neutral palettes
+* Theme configuration
+* Semantic color tokens
+* Typography tokens
+* Spacing tokens
+* Radius tokens
+* Motion tokens
+* Global reset
+
+The default configuration currently uses:
+
+```text
+Neutral: Zinc
+Primary: Yellow
 ```
 
-Without global `turbo`, use your package manager:
+Both the neutral and primary palettes are configurable.
 
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
+### `packages/ui`
+
+The SolidJS component library.
+
+Current components:
+
+```text
+Button      ✅
+Card        ✅
+Badge       ✅
+Input       ✅
+Textarea    ✅
+Label       ✅
+Checkbox    ✅
+Radio       ✅
+Switch       🚧
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+Components follow a consistent structure:
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
+```text
+component/
+├── Component.tsx
+├── component.scss
+└── index.ts
 ```
 
-Without global `turbo`:
+## Styling
 
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+SolidCN uses Sass for component styling.
+
+Global design-system styles are provided by:
+
+```text
+@solidcn/styles
 ```
 
-### Remote Caching
+Components consume semantic CSS variables such as:
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
+```css
+var(--scn-background)
+var(--scn-foreground)
+var(--scn-primary)
+var(--scn-border)
+var(--scn-ring)
+var(--scn-space-4)
+var(--scn-radius-md)
 ```
 
-Without global `turbo`, use your package manager:
+Applications can then add their own styles on top of the design system.
 
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
+For example, the docs application uses:
+
+```text
+apps/docs/src/app.css
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+as its application-level stylesheet.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## Development
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
+Install dependencies:
 
 ```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
+pnpm install
 ```
 
-## Useful Links
+Run the documentation application:
 
-Learn more about the power of Turborepo:
+```sh
+pnpm --filter @solidcn/docs dev
+```
 
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Run type checking for the UI package:
+
+```sh
+pnpm --filter @solidcn/ui check-types
+```
+
+Build the styles package:
+
+```sh
+pnpm --filter @solidcn/styles build
+```
+
+## Component Development Workflow
+
+Components are developed incrementally.
+
+```text
+Create component
+      ↓
+Implement native behavior
+      ↓
+Add Sass styling
+      ↓
+Export component
+      ↓
+Type-check
+      ↓
+Test on /test
+      ↓
+Verify keyboard interaction
+      ↓
+Verify light/dark themes
+      ↓
+Component complete
+```
+
+We deliberately verify components individually rather than building the entire library at once.
+
+## Accessibility
+
+Native browser behavior is preferred whenever possible.
+
+For example, Checkbox is built on:
+
+```html
+<input type="checkbox">
+```
+
+Radio uses:
+
+```html
+<input type="radio">
+```
+
+Switch uses:
+
+```html
+<input type="checkbox" role="switch">
+```
+
+This allows SolidCN to style controls without unnecessarily replacing the browser's native interaction model.
+
+Accessibility will become increasingly important as the library moves into more complex components such as:
+
+* Select
+* Dialog
+* Dropdown Menu
+* Popover
+* Tabs
+* Tooltip
+* Toast
+
+## Roadmap
+
+### Foundation
+
+* [x] Sass architecture
+* [x] Color palettes
+* [x] Neutral palettes
+* [x] Configurable primary palette
+* [x] Semantic color tokens
+* [x] Light theme
+* [x] Dark theme
+* [x] Typography tokens
+* [x] Spacing tokens
+* [x] Radius tokens
+* [x] Motion tokens
+* [x] Global reset
+
+### Core Components
+
+* [x] Button
+* [x] Card
+* [x] Badge
+* [x] Input
+* [x] Textarea
+* [x] Label
+* [x] Checkbox
+* [x] Radio
+* [ ] Switch
+* [ ] Select
+* [ ] Separator
+* [ ] Avatar
+* [ ] Skeleton
+* [ ] Spinner
+* [ ] Alert
+
+### Interactive Components
+
+* [ ] Tabs
+* [ ] Tooltip
+* [ ] Popover
+* [ ] Dropdown Menu
+* [ ] Dialog
+* [ ] Toast
+
+### Data & Navigation
+
+* [ ] Table
+* [ ] Pagination
+* [ ] Accordion
+* [ ] Command
+* [ ] Calendar
+* [ ] Date Picker
+
+### Registry & CLI
+
+Planned workflow:
+
+```sh
+pnpm dlx solidcn init
+```
+
+Then:
+
+```sh
+pnpm dlx solidcn add button
+pnpm dlx solidcn add card
+pnpm dlx solidcn add input
+```
+
+The registry will eventually allow developers to add SolidCN components as source code directly into their applications.
+
+## Long-Term Goal
+
+SolidCN aims to become a practical, source-owned component ecosystem for SolidJS.
+
+The project will eventually include:
+
+```text
+SolidCN
+│
+├── Design System
+│   ├── Colors
+│   ├── Themes
+│   ├── Typography
+│   ├── Spacing
+│   └── Motion
+│
+├── Component Library
+│   └── SolidJS components
+│
+├── Documentation
+│   └── Interactive examples
+│
+├── Registry
+│   └── Component definitions
+│
+└── CLI
+    └── Project integration
+```
+
+## Status
+
+SolidCN is currently under active development.
+
+The foundation and core form components are being built incrementally, with the `/test` route serving as the component development playground.

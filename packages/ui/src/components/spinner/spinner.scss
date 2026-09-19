@@ -1,0 +1,38 @@
+.scn-spinner {
+  display: inline-block;
+  flex-shrink: 0;
+
+  border: 2px solid var(--scn-muted);
+  border-top-color: var(--scn-primary);
+  border-radius: var(--scn-radius-full);
+
+  animation: scn-spinner-spin 0.7s linear infinite;
+
+  &--sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &--md {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &--lg {
+    width: 2rem;
+    height: 2rem;
+    border-width: 3px;
+  }
+}
+
+@keyframes scn-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scn-spinner {
+    animation-duration: 1.5s;
+  }
+}

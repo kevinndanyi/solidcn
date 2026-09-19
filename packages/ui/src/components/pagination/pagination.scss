@@ -1,0 +1,116 @@
+.scn-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--scn-space-1);
+
+  font-family: var(--scn-font-sans);
+}
+
+.scn-pagination__item,
+.scn-pagination__previous,
+.scn-pagination__next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 2.25rem;
+
+  background: transparent;
+  color: var(--scn-foreground);
+
+  border: 1px solid transparent;
+  border-radius: var(--scn-radius-md);
+
+  font-family: inherit;
+  font-size: var(--scn-text-sm);
+  font-weight: var(--scn-weight-medium);
+
+  cursor: pointer;
+
+  transition:
+    background var(--scn-duration-fast)
+      var(--scn-ease-standard),
+    color var(--scn-duration-fast)
+      var(--scn-ease-standard),
+    border-color var(--scn-duration-fast)
+      var(--scn-ease-standard);
+}
+
+.scn-pagination__item {
+  width: 2.25rem;
+
+  &:hover:not(:disabled) {
+    background: var(--scn-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+
+  &--active {
+    background: var(--scn-primary);
+    color: var(--scn-primary-foreground);
+    border-color: var(--scn-primary);
+
+    &:hover:not(:disabled) {
+      background: var(--scn-primary);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.scn-pagination__previous,
+.scn-pagination__next {
+  gap: var(--scn-space-2);
+
+  padding: 0 var(--scn-space-3);
+
+  &:hover:not(:disabled) {
+    background: var(--scn-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.scn-pagination__arrow {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.scn-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  min-height: 2.25rem;
+
+  color: var(--scn-muted-foreground);
+
+  font-size: var(--scn-text-sm);
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  .scn-pagination__previous,
+  .scn-pagination__next {
+    padding: 0 var(--scn-space-2);
+
+    span:not(.scn-pagination__arrow) {
+      display: none;
+    }
+  }
+}

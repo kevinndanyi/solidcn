@@ -1,0 +1,142 @@
+.scn-dialog {
+  display: inline-flex;
+}
+
+.scn-dialog__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--scn-primary);
+  color: var(--scn-primary-foreground);
+
+  border: 1px solid var(--scn-primary);
+  border-radius: var(--scn-radius-md);
+
+  padding: 0 var(--scn-space-4);
+  min-height: 2.5rem;
+
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-sm);
+  font-weight: var(--scn-weight-medium);
+
+  cursor: pointer;
+
+  transition:
+    background var(--scn-duration-fast)
+      var(--scn-ease-standard),
+    border-color var(--scn-duration-fast)
+      var(--scn-ease-standard);
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+}
+
+.scn-dialog__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--scn-space-4);
+
+  background: rgb(0 0 0 / 0.6);
+
+  animation: scn-dialog-overlay-in
+    var(--scn-duration-fast)
+    var(--scn-ease-standard);
+}
+
+.scn-dialog__content {
+  width: min(100%, 32rem);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-lg);
+
+  padding: var(--scn-space-6);
+
+  box-shadow:
+    0 20px 25px rgb(0 0 0 / 0.12),
+    0 8px 10px rgb(0 0 0 / 0.08);
+
+  animation: scn-dialog-content-in
+    var(--scn-duration-fast)
+    var(--scn-ease-standard);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.scn-dialog__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 2.25rem;
+  padding: 0 var(--scn-space-3);
+
+  background: var(--scn-secondary);
+  color: var(--scn-secondary-foreground);
+
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-md);
+
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-sm);
+  font-weight: var(--scn-weight-medium);
+
+  cursor: pointer;
+
+  &:hover {
+    background: var(--scn-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes scn-dialog-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scn-dialog-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scn-dialog__overlay,
+  .scn-dialog__content {
+    animation: none;
+  }
+}

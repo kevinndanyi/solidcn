@@ -1,5 +1,6 @@
 .scn-card {
   width: 100%;
+  padding: var(--scn-space-6);
 
   background: var(--scn-background);
   color: var(--scn-foreground);
@@ -7,7 +8,6 @@
   border: 1px solid var(--scn-border);
   border-radius: var(--scn-radius-lg);
 
-  box-shadow:
-    0 1px 2px rgb(0 0 0 / 0.05);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
 }
 

@@ -1,0 +1,72 @@
+.scn-popover {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+}
+
+.scn-popover__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: inherit;
+
+  border: 0;
+  padding: 0;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+    border-radius: var(--scn-radius-sm);
+  }
+}
+
+.scn-popover__content {
+  position: absolute;
+  z-index: 50;
+
+  top: calc(100% + var(--scn-space-2));
+  left: 0;
+
+  width: 20rem;
+  max-width: calc(100vw - 2rem);
+
+  padding: var(--scn-space-4);
+
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-md);
+
+  box-shadow:
+    0 10px 15px rgb(0 0 0 / 0.1),
+    0 4px 6px rgb(0 0 0 / 0.08);
+
+  animation: scn-popover-in
+    var(--scn-duration-fast)
+    var(--scn-ease-standard);
+}
+
+@keyframes scn-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scn-popover__content {
+    animation: none;
+  }
+}
