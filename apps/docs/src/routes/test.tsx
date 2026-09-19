@@ -1,60 +1,98 @@
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
 } from '@solidcn/ui'
 
 export default function Test() {
     return (
-        <main style={{ padding: '2rem' }}>
-            <h1>Table</h1>
+        <main
+            style={{
+                padding: '2rem',
+                'max-width': '32rem',
+                margin: '0 auto',
+            }}
+        >
+            <h1>Command</h1>
 
-            <Table>
-                <TableCaption>Recent trades</TableCaption>
+            <p
+                style={{
+                    color: 'var(--scn-muted-foreground)',
+                    'margin-bottom': '1.5rem',
+                }}
+            >
+                Search through available commands.
+            </p>
 
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Symbol</TableHead>
-                        <TableHead>Direction</TableHead>
-                        <TableHead>Entry</TableHead>
-                        <TableHead>Result</TableHead>
-                    </TableRow>
-                </TableHeader>
+            <Command
+                onSelect={(value) => {
+                    console.log('Selected:', value)
+                }}
+            >
+                <CommandInput placeholder="Search commands..." />
 
-                <TableBody>
-                    <TableRow>
-                        <TableCell>EURUSD</TableCell>
-                        <TableCell>Long</TableCell>
-                        <TableCell>1.1742</TableCell>
-                        <TableCell>+2R</TableCell>
-                    </TableRow>
+                <CommandList>
+                    <CommandEmpty>
+                        No results found.
+                    </CommandEmpty>
 
-                    <TableRow>
-                        <TableCell>GBPUSD</TableCell>
-                        <TableCell>Short</TableCell>
-                        <TableCell>1.3528</TableCell>
-                        <TableCell>-1R</TableCell>
-                    </TableRow>
+                    <CommandGroup heading="Account">
+                        <CommandItem value="Profile">
+                            Profile
+                        </CommandItem>
 
-                    <TableRow>
-                        <TableCell>XAUUSD</TableCell>
-                        <TableCell>Long</TableCell>
-                        <TableCell>3648.20</TableCell>
-                        <TableCell>+3R</TableCell>
-                    </TableRow>
+                        <CommandItem value="Settings">
+                            Settings
+                        </CommandItem>
 
-                    <TableRow>
-                        <TableCell>NAS100</TableCell>
-                        <TableCell>Short</TableCell>
-                        <TableCell>24,850</TableCell>
-                        <TableCell>+1.5R</TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+                        <CommandItem value="Billing">
+                            Billing
+                        </CommandItem>
+
+                        <CommandItem
+                            value="Security"
+                            disabled
+                        >
+                            Security
+                        </CommandItem>
+                    </CommandGroup>
+
+                    <CommandGroup heading="Trading">
+                        <CommandItem value="Trade Journal">
+                            Trade Journal
+                        </CommandItem>
+
+                        <CommandItem value="Trading Accounts">
+                            Trading Accounts
+                        </CommandItem>
+
+                        <CommandItem value="Markets">
+                            Markets
+                        </CommandItem>
+
+                        <CommandItem value="Analytics">
+                            Analytics
+                        </CommandItem>
+                    </CommandGroup>
+
+                    <CommandGroup heading="Platform">
+                        <CommandItem value="Dashboard">
+                            Dashboard
+                        </CommandItem>
+
+                        <CommandItem value="Notifications">
+                            Notifications
+                        </CommandItem>
+
+                        <CommandItem value="Help Center">
+                            Help Center
+                        </CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>
         </main>
     )
 }

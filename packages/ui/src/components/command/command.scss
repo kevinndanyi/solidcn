@@ -1,2 +1,92 @@
 .scn-command {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-lg);
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+  box-shadow: var(--scn-shadow-lg);
+}
+
+.scn-command__input-wrapper {
+  border-bottom: 1px solid var(--scn-border);
+}
+
+.scn-command__input {
+  width: 100%;
+  height: 3rem;
+  padding: 0 var(--scn-space-4);
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--scn-foreground);
+  font: inherit;
+
+  &::placeholder {
+    color: var(--scn-muted-foreground);
+  }
+
+  &:focus {
+    box-shadow: inset 0 -2px 0
+      var(--scn-ring);
+  }
+}
+
+.scn-command__list {
+  max-height: 20rem;
+  overflow-y: auto;
+  padding: var(--scn-space-2);
+}
+
+.scn-command__group {
+  padding: var(--scn-space-1) 0;
+}
+
+.scn-command__group-heading {
+  padding: var(--scn-space-2)
+    var(--scn-space-3);
+  font-size: var(--scn-font-size-xs);
+  font-weight: 600;
+  color: var(--scn-muted-foreground);
+}
+
+.scn-command__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 2.25rem;
+  padding: var(--scn-space-2)
+    var(--scn-space-3);
+  border-radius: var(--scn-radius-md);
+  cursor: pointer;
+  outline: none;
+
+  &:hover,
+  &:focus,
+  &[aria-selected='true'] {
+    background: var(--scn-muted);
+  }
+
+  &:focus-visible {
+    box-shadow: inset 0 0 0 2px
+      var(--scn-ring);
+  }
+}
+
+.scn-command__item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.scn-command__check {
+  font-size: var(--scn-font-size-sm);
+  color: var(--scn-primary);
+}
+
+.scn-command__empty {
+  padding: var(--scn-space-8)
+    var(--scn-space-4);
+  text-align: center;
+  font-size: var(--scn-font-size-sm);
+  color: var(--scn-muted-foreground);
 }
