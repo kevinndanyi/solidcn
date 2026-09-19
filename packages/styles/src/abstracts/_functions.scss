@@ -1,0 +1,18 @@
+@use 'sass:map';
+
+@function token($map, $key) {
+  @if map.has-key($map, $key) {
+    @return map.get($map, $key);
+  }
+
+  @error 'Token "#{$key}" does not exist.';
+}
+
+
+@function color($palette, $shade) {
+  @if not map.has-key($palette, $shade) {
+    @error 'Color shade "#{$shade}" does not exist in the supplied palette.';
+  }
+
+  @return map.get($palette, $shade);
+}

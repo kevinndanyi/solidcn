@@ -1,0 +1,50 @@
+.scn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  padding: var(--scn-space-1) var(--scn-space-2);
+
+  border: 1px solid transparent;
+  border-radius: var(--scn-radius-full);
+
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-xs);
+  font-weight: var(--scn-weight-medium);
+  line-height: var(--scn-leading-tight);
+
+  white-space: nowrap;
+}
+
+.scn-badge--primary {
+  background: var(--scn-primary);
+  color: var(--scn-primary-foreground);
+}
+
+.scn-badge--secondary {
+  background: var(--scn-secondary);
+  color: var(--scn-secondary-foreground);
+}
+
+.scn-badge--success {
+  background: var(--scn-success);
+  color: var(--scn-success-foreground);
+}
+
+.scn-badge--warning {
+  background: var(--scn-warning);
+  color: var(--scn-warning-foreground);
+}
+
+.scn-badge--danger {
+  background: var(--scn-destructive);
+  color: var(--scn-destructive-foreground);
+}
+
+.scn-badge--outline {
+  background: transparent;
+  color: var(--scn-foreground);
+  border-color: var(--scn-border);
+}

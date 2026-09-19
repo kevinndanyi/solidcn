@@ -1,0 +1,34 @@
+@use '../abstracts/config' as config;
+@use '../abstracts/functions' as fn;
+
+[data-theme='dark'] {
+  --scn-background: #{fn.color(config.$neutral, 950)};
+  --scn-foreground: #{fn.color(config.$neutral, 50)};
+
+  --scn-primary: #{fn.color(config.$primary, 500)};
+  --scn-primary-foreground: #{fn.color(config.$neutral, 950)};
+
+  --scn-secondary: #{fn.color(config.$neutral, 800)};
+  --scn-secondary-foreground: #{fn.color(config.$neutral, 50)};
+
+  --scn-muted: #{fn.color(config.$neutral, 800)};
+  --scn-muted-foreground: #{fn.color(config.$neutral, 400)};
+
+  --scn-accent: #{fn.color(config.$primary, 900)};
+  --scn-accent-foreground: #{fn.color(config.$primary, 100)};
+
+  --scn-destructive: #ef4444;
+  --scn-destructive-foreground: #{fn.color(config.$neutral, 50)};
+
+  --scn-success: #22c55e;
+  --scn-success-foreground: #{fn.color(config.$neutral, 950)};
+
+  --scn-warning: #f59e0b;
+  --scn-warning-foreground: #{fn.color(config.$neutral, 950)};
+
+  --scn-border: #{fn.color(config.$neutral, 800)};
+
+  --scn-border: #{fn.color(config.$neutral, 800)};
+  --scn-input: #{fn.color(config.$neutral, 800)};
+  --scn-ring: #{fn.color(config.$primary, 400)};
+}

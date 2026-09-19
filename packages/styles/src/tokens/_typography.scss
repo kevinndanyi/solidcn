@@ -1,0 +1,21 @@
+:root {
+  --scn-font-sans: ui-sans-serif, system-ui, sans-serif;
+  --scn-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --scn-text-xs: 0.75rem;
+  --scn-text-sm: 0.875rem;
+  --scn-text-base: 1rem;
+  --scn-text-lg: 1.125rem;
+  --scn-text-xl: 1.25rem;
+  --scn-text-2xl: 1.5rem;
+  --scn-text-3xl: 1.875rem;
+
+  --scn-leading-tight: 1.25;
+  --scn-leading-normal: 1.5;
+  --scn-leading-relaxed: 1.625;
+
+  --scn-weight-normal: 400;
+  --scn-weight-medium: 500;
+  --scn-weight-semibold: 600;
+  --scn-weight-bold: 700;
+}

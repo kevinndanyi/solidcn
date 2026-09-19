@@ -1,0 +1,13 @@
+.scn-label {
+  display: inline-flex;
+  align-items: center;
+
+  color: var(--scn-foreground);
+
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-sm);
+  font-weight: var(--scn-weight-medium);
+  line-height: var(--scn-leading-normal);
+
+  user-select: none;
+}

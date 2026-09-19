@@ -1,0 +1,55 @@
+@use 'red' as red-palette;
+@use 'orange' as orange-palette;
+@use 'amber' as amber-palette;
+@use 'yellow' as yellow-palette;
+@use 'lime' as lime-palette;
+@use 'green' as green-palette;
+@use 'emerald' as emerald-palette;
+@use 'teal' as teal-palette;
+@use 'cyan' as cyan-palette;
+@use 'sky' as sky-palette;
+@use 'blue' as blue-palette;
+@use 'indigo' as indigo-palette;
+@use 'violet' as violet-palette;
+@use 'purple' as purple-palette;
+@use 'fuchsia' as fuchsia-palette;
+@use 'pink' as pink-palette;
+@use 'rose' as rose-palette;
+
+@forward 'red';
+@forward 'orange';
+@forward 'amber';
+@forward 'yellow';
+@forward 'lime';
+@forward 'green';
+@forward 'emerald';
+@forward 'teal';
+@forward 'cyan';
+@forward 'sky';
+@forward 'blue';
+@forward 'indigo';
+@forward 'violet';
+@forward 'purple';
+@forward 'fuchsia';
+@forward 'pink';
+@forward 'rose';
+
+$palettes: (
+  'red': red-palette.$red,
+  'orange': orange-palette.$orange,
+  'amber': amber-palette.$amber,
+  'yellow': yellow-palette.$yellow,
+  'lime': lime-palette.$lime,
+  'green': green-palette.$green,
+  'emerald': emerald-palette.$emerald,
+  'teal': teal-palette.$teal,
+  'cyan': cyan-palette.$cyan,
+  'sky': sky-palette.$sky,
+  'blue': blue-palette.$blue,
+  'indigo': indigo-palette.$indigo,
+  'violet': violet-palette.$violet,
+  'purple': purple-palette.$purple,
+  'fuchsia': fuchsia-palette.$fuchsia,
+  'pink': pink-palette.$pink,
+  'rose': rose-palette.$rose
+);

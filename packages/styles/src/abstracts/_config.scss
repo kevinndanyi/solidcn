@@ -1,0 +1,18 @@
+@use 'sass:map';
+
+@use '../foundations/neutrals' as neutrals;
+@use '../palettes' as palettes;
+
+$neutral-name: 'zinc';
+$primary-name: 'yellow';
+
+@if not map.has-key(neutrals.$neutrals, $neutral-name) {
+  @error 'Unknown neutral palette: "#{$neutral-name}".';
+}
+
+@if not map.has-key(palettes.$palettes, $primary-name) {
+  @error 'Unknown primary palette: "#{$primary-name}".';
+}
+
+$neutral: map.get(neutrals.$neutrals, $neutral-name);
+$primary: map.get(palettes.$palettes, $primary-name);

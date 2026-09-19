@@ -1,0 +1,67 @@
+.scn-checkbox {
+  appearance: none;
+
+  display: inline-grid;
+  place-content: center;
+
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+
+  background: var(--scn-background);
+
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-sm);
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--scn-duration-normal) var(--scn-ease-standard),
+    border-color var(--scn-duration-normal) var(--scn-ease-standard),
+    box-shadow var(--scn-duration-normal) var(--scn-ease-standard);
+
+  &::before {
+    content: '';
+
+    width: 0.5rem;
+    height: 0.5rem;
+
+    transform: scale(0);
+
+    background: var(--scn-primary-foreground);
+
+    clip-path: polygon(
+      14% 44%,
+      0 59%,
+      38% 100%,
+      100% 16%,
+      84% 0,
+      37% 62%
+    );
+
+    transition: transform var(--scn-duration-fast) var(--scn-ease-standard);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--scn-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+
+  &:checked {
+    background: var(--scn-primary);
+    border-color: var(--scn-primary);
+
+    &::before {
+      transform: scale(1);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@solidcn/styles",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "style": "dist/index.css",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "sass src/index.scss dist/index.css",
+    "check": "sass --check src/index.scss"
+  },
+  "devDependencies": {
+    "sass": "^1.104.1"
+  }
+}

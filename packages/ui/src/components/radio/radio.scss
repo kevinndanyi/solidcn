@@ -1,0 +1,59 @@
+.scn-radio {
+  appearance: none;
+
+  display: inline-grid;
+  place-content: center;
+
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+
+  background: var(--scn-background);
+
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-full);
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--scn-duration-normal) var(--scn-ease-standard),
+    border-color var(--scn-duration-normal) var(--scn-ease-standard),
+    box-shadow var(--scn-duration-normal) var(--scn-ease-standard);
+
+  &::before {
+    content: '';
+
+    width: 0.5rem;
+    height: 0.5rem;
+
+    border-radius: var(--scn-radius-full);
+
+    background: var(--scn-primary);
+
+    transform: scale(0);
+
+    transition: transform var(--scn-duration-fast) var(--scn-ease-standard);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--scn-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+
+  &:checked {
+    border-color: var(--scn-primary);
+
+    &::before {
+      transform: scale(1);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

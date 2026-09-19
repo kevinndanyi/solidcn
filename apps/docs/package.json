@@ -1,28 +1,28 @@
 {
-  "name": "docs",
-  "version": "0.1.0",
+  "name": "@solidcn/docs",
   "type": "module",
-  "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint --max-warnings 0",
-    "check-types": "next typegen && tsc --noEmit"
+    "dev": "vite dev",
+    "build": "vite build",
+    "start": "node .output/server/index.mjs",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "next": "16.3.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "@solidcn/styles": "workspace:^",
+    "@solidcn/ui": "workspace:^",
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^1.0.0",
+    "@solidjs/start": "^2.0.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "nitro": "^3.0.260610-beta",
+    "solid-js": "^1.9.14",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
-    "eslint": "^9.39.1",
-    "typescript": "5.9.2"
+    "sass": "^1.104.1"
   }
 }
