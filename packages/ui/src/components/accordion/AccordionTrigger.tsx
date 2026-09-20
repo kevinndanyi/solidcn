@@ -1,5 +1,6 @@
 import type { Component, JSX } from 'solid-js'
 import { splitProps } from 'solid-js'
+import { ChevronDown } from 'lucide-solid'
 import { cx } from '@solidcn/cx'
 
 import { useAccordion } from './Accordion'
@@ -108,9 +109,16 @@ export const AccordionTrigger: Component<
 
             <span
                 aria-hidden="true"
-                class="scn-accordion__icon"
+                class={cx(
+                    'scn-accordion__icon',
+                    open() &&
+                    'scn-accordion__icon--open',
+                )}
             >
-                +
+                <ChevronDown
+                    size={16}
+                    strokeWidth={2}
+                />
             </span>
         </button>
     )

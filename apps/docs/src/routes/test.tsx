@@ -1,60 +1,62 @@
-import {
-    createSignal,
-} from 'solid-js'
 
 import {
-    DatePicker,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@solidcn/ui'
 
 export default function Test() {
-    const [date, setDate] =
-        createSignal<Date>()
+  return (
+    <main
+      style={{
+        padding: '2rem',
+        'max-width': '42rem',
+        margin: '0 auto',
+      }}
+    >
+      <h1>Dropdown Menu</h1>
 
-    return (
-        <main
-            style={{
-                padding: '2rem',
-                'max-width': '32rem',
-                margin: '0 auto',
-            }}
-        >
-            <h1>DatePicker</h1>
+      <p
+        style={{
+          color:
+            'var(--scn-muted-foreground)',
+          'margin-bottom': '2rem',
+        }}
+      >
+        Test opening, closing, keyboard
+        navigation, disabled items, and the
+        Lucide chevron.
+      </p>
 
-            <p
-                style={{
-                    color:
-                        'var(--scn-muted-foreground)',
-                    'margin-bottom': '1.5rem',
-                }}
-            >
-                Select a date using the calendar
-                popover.
-            </p>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          Account
+        </DropdownMenuTrigger>
 
-            <DatePicker
-                value={date()}
-                onChange={(value) => {
-                    setDate(value)
+        <DropdownMenuContent>
+          <DropdownMenuItem>
+            Profile
+          </DropdownMenuItem>
 
-                    console.log(
-                        'Selected:',
-                        value?.toDateString(),
-                    )
-                }}
-            />
+          <DropdownMenuItem>
+            Settings
+          </DropdownMenuItem>
 
-            <p
-                style={{
-                    'margin-top': '1.5rem',
-                    color:
-                        'var(--scn-muted-foreground)',
-                }}
-            >
-                Selected:{' '}
-                {date()
-                    ? date()!.toDateString()
-                    : 'None'}
-            </p>
-        </main>
-    )
+          <DropdownMenuItem>
+            Billing
+          </DropdownMenuItem>
+
+          <DropdownMenuItem disabled>
+            Disabled
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            Sign out
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </main>
+  )
 }
+

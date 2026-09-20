@@ -8,6 +8,10 @@ import {
   Show,
   splitProps,
 } from 'solid-js'
+import {
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-solid'
 import { cx } from '@solidcn/cx'
 
 import './calendar.scss'
@@ -68,10 +72,12 @@ const sameDay = (a: Date, b: Date) =>
   a.getDate() === b.getDate()
 
 const isBefore = (a: Date, b: Date) =>
-  startOfDay(a).getTime() < startOfDay(b).getTime()
+  startOfDay(a).getTime() <
+  startOfDay(b).getTime()
 
 const isAfter = (a: Date, b: Date) =>
-  startOfDay(a).getTime() > startOfDay(b).getTime()
+  startOfDay(a).getTime() >
+  startOfDay(b).getTime()
 
 const formatMonth = (date: Date) =>
   `${MONTHS[date.getMonth()]} ${date.getFullYear()}`
@@ -80,122 +86,249 @@ const createMonthDays = (date: Date) => {
   const year = date.getFullYear()
   const month = date.getMonth()
 
-  const firstDay = new Date(year, month, 1)
-  const lastDay = new Date(year, month + 1, 0)
+  const firstDay = new Date(
+    year,
+    month,
+    1,
+  )
+
+  const lastDay = new Date(
+    year,
+    month + 1,
+    0,
+  )
+
   const days: Date[] = []
-  const previousMonthDays = firstDay.getDay()
+  const previousMonthDays =
+    firstDay.getDay()
 
-  for (let index = previousMonthDays; index > 0; index--) {
-    days.push(new Date(year, month, 1 - index))
+  for (
+    let index = previousMonthDays;
+    index > 0;
+    index--
+  ) {
+    days.push(
+      new Date(
+        year,
+        month,
+        1 - index,
+      ),
+    )
   }
 
-  for (let day = 1; day <= lastDay.getDate(); day++) {
-    days.push(new Date(year, month, day))
+  for (
+    let day = 1;
+    day <= lastDay.getDate();
+    day++
+  ) {
+    days.push(
+      new Date(
+        year,
+        month,
+        day,
+      ),
+    )
   }
 
-  const remaining = 42 - days.length
+  const remaining =
+    42 - days.length
 
-  for (let day = 1; day <= remaining; day++) {
-    days.push(new Date(year, month + 1, day))
+  for (
+    let day = 1;
+    day <= remaining;
+    day++
+  ) {
+    days.push(
+      new Date(
+        year,
+        month + 1,
+        day,
+      ),
+    )
   }
 
   return days
 }
 
-const getDecadeStart = (year: number) =>
+const getDecadeStart = (
+  year: number,
+) =>
   Math.floor(year / 10) * 10
 
-export const Calendar: Component<CalendarProps> = (props) => {
-  const [local, rest] = splitProps(props, [
-    'class',
-    'value',
-    'defaultValue',
-    'onSelect',
-    'minDate',
-    'maxDate',
-    'disabled',
-  ])
+export const Calendar: Component<
+  CalendarProps
+> = (props) => {
+  const [local, rest] =
+    splitProps(props, [
+      'class',
+      'value',
+      'defaultValue',
+      'onSelect',
+      'minDate',
+      'maxDate',
+      'disabled',
+    ])
 
-  const today = startOfDay(new Date())
+  const today = startOfDay(
+    new Date(),
+  )
 
   const initialDate =
-    local.value ?? local.defaultValue ?? today
+    local.value ??
+    local.defaultValue ??
+    today
 
-  const [internalValue, setInternalValue] =
-    createSignal<Date | undefined>(local.defaultValue)
+  const [
+    internalValue,
+    setInternalValue,
+  ] =
+    createSignal<
+      Date | undefined
+    >(local.defaultValue)
 
-  const selectedDate = createMemo(
-    () => local.value ?? internalValue(),
-  )
+  const selectedDate =
+    createMemo(
+      () =>
+        local.value ??
+        internalValue(),
+    )
 
-  const [month, setMonth] = createSignal(
-    new Date(
-      initialDate.getFullYear(),
-      initialDate.getMonth(),
-      1,
-    ),
-  )
+  const [month, setMonth] =
+    createSignal(
+      new Date(
+        initialDate.getFullYear(),
+        initialDate.getMonth(),
+        1,
+      ),
+    )
 
-  const [focusedDate, setFocusedDate] = createSignal<Date>(
-    initialDate,
-  )
+  const [
+    focusedDate,
+    setFocusedDate,
+  ] =
+    createSignal<Date>(
+      initialDate,
+    )
 
   const [view, setView] =
-    createSignal<CalendarView>('days')
+    createSignal<CalendarView>(
+      'days',
+    )
 
-  const [activeRef, setActiveRef] =
-    createSignal<HTMLButtonElement | null>(null)
+  const [
+    activeRef,
+    setActiveRef,
+  ] =
+    createSignal<
+      HTMLButtonElement | null
+    >(null)
 
-  const days = createMemo(() => createMonthDays(month()))
+  const days = createMemo(
+    () =>
+      createMonthDays(
+        month(),
+      ),
+  )
 
-  const currentYear = () => month().getFullYear()
-  const currentMonth = () => month().getMonth()
+  const currentYear = () =>
+    month().getFullYear()
+
+  const currentMonth = () =>
+    month().getMonth()
 
   // Automatically focus active element whenever DOM mounts/re-renders
   createEffect(
     on(
-      [focusedDate, activeRef, view],
+      [
+        focusedDate,
+        activeRef,
+        view,
+      ],
       ([, ref, currentView]) => {
-        if (currentView === 'days' && ref) {
+        if (
+          currentView ===
+          'days' &&
+          ref
+        ) {
           queueMicrotask(() => {
             ref.focus()
           })
         }
       },
-      { defer: true },
+      {
+        defer: true,
+      },
     ),
   )
 
-  const isDisabled = (date: Date) => {
-    if (local.minDate && isBefore(date, local.minDate)) {
+  const isDisabled = (
+    date: Date,
+  ) => {
+    if (
+      local.minDate &&
+      isBefore(
+        date,
+        local.minDate,
+      )
+    ) {
       return true
     }
-    if (local.maxDate && isAfter(date, local.maxDate)) {
+
+    if (
+      local.maxDate &&
+      isAfter(
+        date,
+        local.maxDate,
+      )
+    ) {
       return true
     }
-    return local.disabled?.(date) ?? false
+
+    return (
+      local.disabled?.(date) ??
+      false
+    )
   }
 
-  const selectDate = (date: Date) => {
-    if (isDisabled(date)) return
+  const selectDate = (
+    date: Date,
+  ) => {
+    if (isDisabled(date))
+      return
+
     setInternalValue(date)
     setFocusedDate(date)
+
     local.onSelect?.(date)
   }
 
-  const setYear = (year: number) => {
+  const setYear = (
+    year: number,
+  ) => {
     setMonth(
       (current) =>
-        new Date(year, current.getMonth(), 1),
+        new Date(
+          year,
+          current.getMonth(),
+          1,
+        ),
     )
+
     setView('months')
   }
 
-  const setMonthValue = (monthIndex: number) => {
+  const setMonthValue = (
+    monthIndex: number,
+  ) => {
     setMonth(
       (current) =>
-        new Date(current.getFullYear(), monthIndex, 1),
+        new Date(
+          current.getFullYear(),
+          monthIndex,
+          1,
+        ),
     )
+
     setView('days')
   }
 
@@ -204,7 +337,8 @@ export const Calendar: Component<CalendarProps> = (props) => {
       (current) =>
         new Date(
           current.getFullYear(),
-          current.getMonth() - 1,
+          current.getMonth() -
+          1,
           1,
         ),
     )
@@ -215,7 +349,8 @@ export const Calendar: Component<CalendarProps> = (props) => {
       (current) =>
         new Date(
           current.getFullYear(),
-          current.getMonth() + 1,
+          current.getMonth() +
+          1,
           1,
         ),
     )
@@ -225,7 +360,8 @@ export const Calendar: Component<CalendarProps> = (props) => {
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() - 1,
+          current.getFullYear() -
+          1,
           current.getMonth(),
           1,
         ),
@@ -236,7 +372,8 @@ export const Calendar: Component<CalendarProps> = (props) => {
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() + 1,
+          current.getFullYear() +
+          1,
           current.getMonth(),
           1,
         ),
@@ -247,7 +384,8 @@ export const Calendar: Component<CalendarProps> = (props) => {
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() - 10,
+          current.getFullYear() -
+          10,
           current.getMonth(),
           1,
         ),
@@ -258,7 +396,8 @@ export const Calendar: Component<CalendarProps> = (props) => {
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() + 10,
+          current.getFullYear() +
+          10,
           current.getMonth(),
           1,
         ),
@@ -267,8 +406,13 @@ export const Calendar: Component<CalendarProps> = (props) => {
 
   const goToToday = () => {
     setMonth(
-      new Date(today.getFullYear(), today.getMonth(), 1),
+      new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1,
+      ),
     )
+
     setView('days')
     setFocusedDate(today)
 
@@ -277,18 +421,24 @@ export const Calendar: Component<CalendarProps> = (props) => {
     }
   }
 
-  const navigateDate = (nextDate: Date) => {
-    const targetMonth = new Date(
-      nextDate.getFullYear(),
-      nextDate.getMonth(),
-      1,
-    )
+  const navigateDate = (
+    nextDate: Date,
+  ) => {
+    const targetMonth =
+      new Date(
+        nextDate.getFullYear(),
+        nextDate.getMonth(),
+        1,
+      )
 
-    const currentMonthDate = month()
+    const currentMonthDate =
+      month()
+
     const monthChanged =
       targetMonth.getFullYear() !==
       currentMonthDate.getFullYear() ||
-      targetMonth.getMonth() !== currentMonthDate.getMonth()
+      targetMonth.getMonth() !==
+      currentMonthDate.getMonth()
 
     if (monthChanged) {
       setMonth(targetMonth)
@@ -297,82 +447,118 @@ export const Calendar: Component<CalendarProps> = (props) => {
     setFocusedDate(nextDate)
   }
 
-  const handleDayKeyDown: JSX.EventHandler<
-    HTMLButtonElement,
-    KeyboardEvent
-  > = (event) => {
-    const currentDate = focusedDate()
-    const nextDate = new Date(currentDate)
+  const handleDayKeyDown:
+    JSX.EventHandler<
+      HTMLButtonElement,
+      KeyboardEvent
+    > = (event) => {
+      const currentDate =
+        focusedDate()
 
-    switch (event.key) {
-      case 'ArrowLeft':
-        nextDate.setDate(nextDate.getDate() - 1)
-        break
+      const nextDate =
+        new Date(currentDate)
 
-      case 'ArrowRight':
-        nextDate.setDate(nextDate.getDate() + 1)
-        break
+      switch (event.key) {
+        case 'ArrowLeft':
+          nextDate.setDate(
+            nextDate.getDate() -
+            1,
+          )
+          break
 
-      case 'ArrowUp':
-        nextDate.setDate(nextDate.getDate() - 7)
-        break
+        case 'ArrowRight':
+          nextDate.setDate(
+            nextDate.getDate() +
+            1,
+          )
+          break
 
-      case 'ArrowDown':
-        nextDate.setDate(nextDate.getDate() + 7)
-        break
+        case 'ArrowUp':
+          nextDate.setDate(
+            nextDate.getDate() -
+            7,
+          )
+          break
 
-      case 'Home':
-        nextDate.setDate(
-          nextDate.getDate() - nextDate.getDay(),
-        )
-        break
+        case 'ArrowDown':
+          nextDate.setDate(
+            nextDate.getDate() +
+            7,
+          )
+          break
 
-      case 'End':
-        nextDate.setDate(
-          nextDate.getDate() + (6 - nextDate.getDay()),
-        )
-        break
+        case 'Home':
+          nextDate.setDate(
+            nextDate.getDate() -
+            nextDate.getDay(),
+          )
+          break
 
-      case 'PageUp':
-        nextDate.setMonth(nextDate.getMonth() - 1)
-        break
+        case 'End':
+          nextDate.setDate(
+            nextDate.getDate() +
+            (6 -
+              nextDate.getDay()),
+          )
+          break
 
-      case 'PageDown':
-        nextDate.setMonth(nextDate.getMonth() + 1)
-        break
+        case 'PageUp':
+          nextDate.setMonth(
+            nextDate.getMonth() -
+            1,
+          )
+          break
 
-      case 'Enter':
-      case ' ':
-        event.preventDefault()
-        selectDate(currentDate)
+        case 'PageDown':
+          nextDate.setMonth(
+            nextDate.getMonth() +
+            1,
+          )
+          break
+
+        case 'Enter':
+        case ' ':
+          event.preventDefault()
+          selectDate(currentDate)
+          return
+
+        default:
+          return
+      }
+
+      event.preventDefault()
+
+      if (isDisabled(nextDate))
         return
 
-      default:
-        return
+      navigateDate(nextDate)
     }
 
-    event.preventDefault()
+  const decadeStart =
+    createMemo(() =>
+      getDecadeStart(
+        currentYear(),
+      ),
+    )
 
-    if (isDisabled(nextDate)) return
-
-    navigateDate(nextDate)
-  }
-
-  const decadeStart = createMemo(() =>
-    getDecadeStart(currentYear()),
-  )
-
-  const decadeYears = createMemo(() =>
-    Array.from(
-      { length: 12 },
-      (_, index) => decadeStart() - 1 + index,
-    ),
-  )
+  const decadeYears =
+    createMemo(() =>
+      Array.from(
+        { length: 12 },
+        (_, index) =>
+          decadeStart() -
+          1 +
+          index,
+      ),
+    )
 
   return (
     <div
       {...rest}
-      class={cx('scn-calendar', local.class)}
+      class={cx(
+        'scn-calendar',
+        local.class,
+      )}
     >
       <div class="scn-calendar__header">
         <button
@@ -386,43 +572,74 @@ export const Calendar: Component<CalendarProps> = (props) => {
                 : 'Previous decade'
           }
           onClick={() => {
-            if (view() === 'days') previousMonth()
-            else if (view() === 'months') previousYear()
-            else previousDecade()
+            if (
+              view() === 'days'
+            ) {
+              previousMonth()
+            } else if (
+              view() === 'months'
+            ) {
+              previousYear()
+            } else {
+              previousDecade()
+            }
           }}
         >
-          ‹
+          <ChevronLeft
+            size={16}
+            strokeWidth={2}
+            aria-hidden="true"
+          />
         </button>
 
-        <Show when={view() === 'days'}>
+        <Show
+          when={
+            view() === 'days'
+          }
+        >
           <button
             type="button"
             class="scn-calendar__heading"
-            onClick={() => setView('months')}
+            onClick={() =>
+              setView('months')
+            }
             aria-label="Select month"
           >
-            {formatMonth(month())}
+            {formatMonth(
+              month(),
+            )}
           </button>
         </Show>
 
-        <Show when={view() === 'months'}>
+        <Show
+          when={
+            view() === 'months'
+          }
+        >
           <button
             type="button"
             class="scn-calendar__heading"
-            onClick={() => setView('years')}
+            onClick={() =>
+              setView('years')
+            }
             aria-label="Select year"
           >
             {currentYear()}
           </button>
         </Show>
 
-        <Show when={view() === 'years'}>
+        <Show
+          when={
+            view() === 'years'
+          }
+        >
           <button
             type="button"
             class="scn-calendar__heading"
             aria-label="Current decade"
           >
-            {decadeStart()}–{decadeStart() + 9}
+            {decadeStart()}–
+            {decadeStart() + 9}
           </button>
         </Show>
 
@@ -437,61 +654,110 @@ export const Calendar: Component<CalendarProps> = (props) => {
                 : 'Next decade'
           }
           onClick={() => {
-            if (view() === 'days') nextMonth()
-            else if (view() === 'months') nextYear()
-            else nextDecade()
+            if (
+              view() === 'days'
+            ) {
+              nextMonth()
+            } else if (
+              view() === 'months'
+            ) {
+              nextYear()
+            } else {
+              nextDecade()
+            }
           }}
         >
-          ›
+          <ChevronRight
+            size={16}
+            strokeWidth={2}
+            aria-hidden="true"
+          />
         </button>
       </div>
 
-      <Show when={view() === 'days'}>
+      <Show
+        when={
+          view() === 'days'
+        }
+      >
         <div
           class="scn-calendar__weekdays"
           aria-hidden="true"
         >
           <For each={WEEKDAYS}>
-            {(weekday) => <span>{weekday}</span>}
+            {(weekday) => (
+              <span>
+                {weekday}
+              </span>
+            )}
           </For>
         </div>
 
         <div
           class="scn-calendar__grid"
           role="grid"
-          aria-label={formatMonth(month())}
+          aria-label={formatMonth(
+            month(),
+          )}
         >
           <For each={days()}>
             {(date) => {
               const outsideMonth =
-                date.getMonth() !== currentMonth()
+                date.getMonth() !==
+                currentMonth()
 
               const selected = () =>
                 selectedDate()
-                  ? sameDay(date, selectedDate()!)
+                  ? sameDay(
+                    date,
+                    selectedDate()!,
+                  )
                   : false
 
               const isFocused = () =>
-                sameDay(date, focusedDate())
+                sameDay(
+                  date,
+                  focusedDate(),
+                )
 
-              const isToday = sameDay(date, today)
-              const disabled = isDisabled(date)
+              const isToday =
+                sameDay(
+                  date,
+                  today,
+                )
+
+              const disabled =
+                isDisabled(date)
 
               return (
                 <button
                   type="button"
                   ref={(el) => {
-                    if (isFocused()) {
-                      setActiveRef(el)
+                    if (
+                      isFocused()
+                    ) {
+                      setActiveRef(
+                        el,
+                      )
                     }
                   }}
                   role="gridcell"
                   data-timestamp={date.getTime()}
                   aria-selected={selected()}
-                  aria-current={isToday ? 'date' : undefined}
-                  aria-disabled={disabled}
+                  aria-current={
+                    isToday
+                      ? 'date'
+                      : undefined
+                  }
+                  aria-disabled={
+                    disabled
+                  }
                   disabled={disabled}
-                  tabindex={isFocused() ? 0 : -1}
+                  tabindex={
+                    isFocused()
+                      ? 0
+                      : -1
+                  }
                   class={cx(
                     'scn-calendar__day',
                     outsideMonth &&
@@ -503,9 +769,19 @@ export const Calendar: Component<CalendarProps> = (props) => {
                     disabled &&
                     'scn-calendar__day--disabled',
                   )}
-                  onClick={() => selectDate(date)}
-                  onFocus={() => setFocusedDate(date)}
-                  onKeyDown={handleDayKeyDown}
+                  onClick={() =>
+                    selectDate(
+                      date,
+                    )
+                  }
+                  onFocus={() =>
+                    setFocusedDate(
+                      date,
+                    )
+                  }
+                  onKeyDown={
+                    handleDayKeyDown
+                  }
                 >
                   {date.getDate()}
                 </button>
@@ -515,22 +791,34 @@ export const Calendar: Component<CalendarProps> = (props) => {
         </div>
       </Show>
 
-      <Show when={view() === 'months'}>
+      <Show
+        when={
+          view() === 'months'
+        }
+      >
         <div
           class="scn-calendar__month-grid"
           role="grid"
           aria-label={`Select month for ${currentYear()}`}
         >
           <For each={MONTHS}>
-            {(monthName, index) => (
+            {(
+              monthName,
+              index,
+            ) => (
               <button
                 type="button"
                 class={cx(
                   'scn-calendar__month-option',
-                  index() === currentMonth() &&
+                  index() ===
+                  currentMonth() &&
                   'scn-calendar__month-option--selected',
                 )}
-                onClick={() => setMonthValue(index())}
+                onClick={() =>
+                  setMonthValue(
+                    index(),
+                  )
+                }
               >
                 {monthName}
               </button>
@@ -539,26 +827,39 @@ export const Calendar: Component<CalendarProps> = (props) => {
         </div>
       </Show>
 
-      <Show when={view() === 'years'}>
+      <Show
+        when={
+          view() === 'years'
+        }
+      >
         <div
           class="scn-calendar__year-grid"
           role="grid"
           aria-label="Select year"
         >
-          <For each={decadeYears()}>
+          <For
+            each={decadeYears()}
+          >
             {(year) => (
               <button
                 type="button"
                 class={cx(
                   'scn-calendar__year-option',
-                  year === currentYear() &&
+                  year ===
+                  currentYear() &&
                   'scn-calendar__year-option--selected',
-                  year === decadeStart() - 1 &&
+                  year ===
+                  decadeStart() -
+                  1 &&
                   'scn-calendar__year-option--outside',
-                  year === decadeStart() + 10 &&
+                  year ===
+                  decadeStart() +
+                  10 &&
                   'scn-calendar__year-option--outside',
                 )}
-                onClick={() => setYear(year)}
+                onClick={() =>
+                  setYear(year)
+                }
               >
                 {year}
               </button>
@@ -571,7 +872,9 @@ export const Calendar: Component<CalendarProps> = (props) => {
         <button
           type="button"
           class="scn-calendar__today"
-          onClick={goToToday}
+          onClick={
+            goToToday
+          }
         >
           Today
         </button>
