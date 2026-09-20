@@ -4,37 +4,17 @@ import {
     CardContent,
     CardHeader,
     CardTitle,
-    Confirmation,
-    ConfirmationActions,
-    ConfirmationCancel,
-    ConfirmationConfirm,
-    ConfirmationDescription,
-    ConfirmationTitle,
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
 } from '@solidcn/ui'
 
-import {
-    createSignal,
-} from 'solid-js'
-
 export default function TestPage() {
-    const [open, setOpen] =
-        createSignal(false)
-
-    const [dangerOpen, setDangerOpen] =
-        createSignal(false)
-
-    const [loading, setLoading] =
-        createSignal(false)
-
-    const handleConfirm = () => {
-        setLoading(true)
-
-        setTimeout(() => {
-            setLoading(false)
-            setOpen(false)
-        }, 1500)
-    }
-
     return (
         <main
             style={{
@@ -46,7 +26,7 @@ export default function TestPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        Confirmation
+                        Sheet
                     </CardTitle>
                 </CardHeader>
 
@@ -57,78 +37,157 @@ export default function TestPage() {
                         gap: '1rem',
                     }}
                 >
-                    <Button
-                        onClick={() => setOpen(true)}
-                    >
-                        Open confirmation
-                    </Button>
+                    <Sheet>
+                        <SheetTrigger>
+                            Open right sheet
+                        </SheetTrigger>
 
-                    <Button
-                        variant="danger"
-                        onClick={() =>
-                            setDangerOpen(true)
-                        }
-                    >
-                        Delete account
-                    </Button>
+                        <SheetContent side="right">
+                            <SheetHeader>
+                                <SheetTitle>
+                                    Edit profile
+                                </SheetTitle>
+
+                                <SheetDescription>
+                                    Update your profile
+                                    information and save your
+                                    changes.
+                                </SheetDescription>
+                            </SheetHeader>
+
+                            <div
+                                style={{
+                                    padding: '1.5rem',
+                                    'flex-grow': '1',
+                                }}
+                            >
+                                <p>
+                                    Sheet content goes here.
+                                </p>
+
+                                <p
+                                    style={{
+                                        color:
+                                            'var(--scn-muted-foreground)',
+                                        'font-size':
+                                            'var(--scn-text-sm)',
+                                        'margin-top': '0.5rem',
+                                    }}
+                                >
+                                    This area can contain forms,
+                                    navigation, settings, or
+                                    other application content.
+                                </p>
+                            </div>
+
+                            <SheetFooter>
+                                <SheetClose>
+                                    Cancel
+                                </SheetClose>
+
+                                <Button>
+                                    Save changes
+                                </Button>
+                            </SheetFooter>
+                        </SheetContent>
+                    </Sheet>
+
+                    <Sheet>
+                        <SheetTrigger>
+                            Open left sheet
+                        </SheetTrigger>
+
+                        <SheetContent side="left">
+                            <SheetHeader>
+                                <SheetTitle>
+                                    Navigation
+                                </SheetTitle>
+
+                                <SheetDescription>
+                                    Application navigation
+                                    example.
+                                </SheetDescription>
+                            </SheetHeader>
+
+                            <div
+                                style={{
+                                    padding: '1.5rem',
+                                }}
+                            >
+                                <p>Dashboard</p>
+                                <p>Analytics</p>
+                                <p>Transactions</p>
+                                <p>Settings</p>
+                            </div>
+                        </SheetContent>
+                    </Sheet>
+
+                    <Sheet>
+                        <SheetTrigger>
+                            Open top sheet
+                        </SheetTrigger>
+
+                        <SheetContent side="top">
+                            <SheetHeader>
+                                <SheetTitle>
+                                    Top sheet
+                                </SheetTitle>
+
+                                <SheetDescription>
+                                    Sheets can slide from any
+                                    edge of the viewport.
+                                </SheetDescription>
+                            </SheetHeader>
+                        </SheetContent>
+                    </Sheet>
+
+                    <Sheet>
+                        <SheetTrigger>
+                            Open bottom sheet
+                        </SheetTrigger>
+
+                        <SheetContent side="bottom">
+                            <SheetHeader>
+                                <SheetTitle>
+                                    Bottom sheet
+                                </SheetTitle>
+
+                                <SheetDescription>
+                                    Useful for mobile-oriented
+                                    actions and controls.
+                                </SheetDescription>
+                            </SheetHeader>
+
+                            <SheetFooter>
+                                <SheetClose>
+                                    Close
+                                </SheetClose>
+                            </SheetFooter>
+                        </SheetContent>
+                    </Sheet>
+
+                    <Sheet defaultOpen>
+                        <SheetContent side="right">
+                            <SheetHeader>
+                                <SheetTitle>
+                                    Default open
+                                </SheetTitle>
+
+                                <SheetDescription>
+                                    This sheet starts open using
+                                    defaultOpen.
+                                </SheetDescription>
+                            </SheetHeader>
+
+                            <SheetFooter>
+                                <SheetClose>
+                                    Close
+                                </SheetClose>
+                            </SheetFooter>
+                        </SheetContent>
+                    </Sheet>
                 </CardContent>
             </Card>
-
-            <Confirmation
-                open={open()}
-                onOpenChange={setOpen}
-                onConfirm={handleConfirm}
-                loading={loading()}
-            >
-                <ConfirmationTitle>
-                    Save changes?
-                </ConfirmationTitle>
-
-                <ConfirmationDescription>
-                    Your changes have not been
-                    saved yet. Would you like to
-                    save them before continuing?
-                </ConfirmationDescription>
-
-                <ConfirmationActions>
-                    <ConfirmationCancel>
-                        Cancel
-                    </ConfirmationCancel>
-
-                    <ConfirmationConfirm>
-                        Save changes
-                    </ConfirmationConfirm>
-                </ConfirmationActions>
-            </Confirmation>
-
-            <Confirmation
-                open={dangerOpen()}
-                onOpenChange={setDangerOpen}
-                variant="danger"
-                onConfirm={() =>
-                    setDangerOpen(false)
-                }
-            >
-                <ConfirmationTitle>
-                    Delete account?
-                </ConfirmationTitle>
-
-                <ConfirmationDescription>
-                    This action cannot be undone.
-                    All account data will be
-                    permanently removed.
-                </ConfirmationDescription>
-
-                <ConfirmationActions>
-                    <ConfirmationCancel>
-                        Cancel
-                    </ConfirmationCancel>
-
-                    <ConfirmationConfirm>
-                        Delete account
-                    </ConfirmationConfirm>
-                </ConfirmationActions>
-            </Confirmation>
         </main>
     )
 }
