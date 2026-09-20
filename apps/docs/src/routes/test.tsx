@@ -1,22 +1,18 @@
-import { createSignal } from 'solid-js'
-
 import {
-    Button,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
-    Progress,
 } from '@solidcn/ui'
 
 export default function TestPage() {
-    const [
-        value,
-        setValue,
-    ] = createSignal(72)
-
     return (
         <main
             style={{
@@ -28,12 +24,12 @@ export default function TestPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        Progress
+                        Breadcrumb
                     </CardTitle>
 
                     <CardDescription>
-                        A simple determinate
-                        progress indicator.
+                        Navigation hierarchy for
+                        nested pages.
                     </CardDescription>
                 </CardHeader>
 
@@ -41,118 +37,83 @@ export default function TestPage() {
                     <div
                         style={{
                             display: 'flex',
-                            'flex-direction':
-                                'column',
-                            gap: '1.5rem',
+                            'flex-direction': 'column',
+                            gap: '2rem',
                         }}
                     >
-                        <div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    'justify-content':
-                                        'space-between',
-                                    'margin-bottom':
-                                        '0.5rem',
-                                    'font-size':
-                                        '0.875rem',
-                                }}
-                            >
-                                <span>
-                                    Current progress
-                                </span>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/">
+                                        Home
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
 
-                                <span>
-                                    {value()}%
-                                </span>
-                            </div>
+                                <BreadcrumbSeparator />
 
-                            <Progress
-                                value={value()}
-                                label="Current progress"
-                            />
-                        </div>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/dashboard">
+                                        Dashboard
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
 
-                        <div>
-                            <p
-                                style={{
-                                    margin:
-                                        '0 0 0.5rem',
-                                    'font-size':
-                                        '0.875rem',
-                                    color:
-                                        'var(--scn-muted-foreground)',
-                                }}
-                            >
-                                Custom maximum
-                            </p>
+                                <BreadcrumbSeparator />
 
-                            <Progress
-                                value={75}
-                                max={150}
-                                label="Custom progress"
-                            />
-                        </div>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/dashboard/settings">
+                                        Settings
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
 
-                        <div>
-                            <p
-                                style={{
-                                    margin:
-                                        '0 0 0.5rem',
-                                    'font-size':
-                                        '0.875rem',
-                                    color:
-                                        'var(--scn-muted-foreground)',
-                                }}
-                            >
-                                Clamped values
-                            </p>
+                                <BreadcrumbSeparator />
 
-                            <Progress
-                                value={120}
-                                label="Clamped progress"
-                            />
-                        </div>
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>
+                                        Profile
+                                    </BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/">
+                                        Home
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+
+                                <BreadcrumbSeparator>
+                                    /
+                                </BreadcrumbSeparator>
+
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>
+                                        Reports
+                                    </BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/">
+                                        Home
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+
+                                <BreadcrumbSeparator />
+
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>
+                                        Current Page
+                                    </BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                     </div>
                 </CardContent>
-
-                <CardFooter>
-                    <Button
-                        variant="secondary"
-                        onClick={() =>
-                            setValue(
-                                Math.max(
-                                    0,
-                                    value() - 10,
-                                ),
-                            )
-                        }
-                    >
-                        −10
-                    </Button>
-
-                    <Button
-                        onClick={() =>
-                            setValue(
-                                Math.min(
-                                    100,
-                                    value() + 10,
-                                ),
-                            )
-                        }
-                    >
-                        +10
-                    </Button>
-
-                    <Button
-                        variant="ghost"
-                        onClick={() =>
-                            setValue(0)
-                        }
-                    >
-                        Reset
-                    </Button>
-                </CardFooter>
             </Card>
         </main>
     )
