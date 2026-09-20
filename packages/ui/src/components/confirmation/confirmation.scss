@@ -1,0 +1,178 @@
+.scn-confirmation__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--scn-space-4);
+  background: rgb(0 0 0 / 0.55);
+}
+
+.scn-confirmation {
+  width: min(
+    100%,
+    28rem
+  );
+  padding: var(--scn-space-6);
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-lg);
+  box-shadow: var(--scn-shadow-lg);
+  animation:
+    scn-confirmation-in
+    var(--scn-duration-fast)
+    var(--scn-ease-standard);
+}
+
+.scn-confirmation__title {
+  margin: 0;
+  color: var(--scn-foreground);
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-lg);
+  font-weight: var(--scn-weight-semibold);
+  line-height: 1.4;
+}
+
+.scn-confirmation__description {
+  margin: var(--scn-space-2) 0 0;
+  color: var(--scn-muted-foreground);
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-sm);
+  line-height: 1.5;
+}
+
+.scn-confirmation__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--scn-space-2);
+  margin-top: var(--scn-space-6);
+}
+
+.scn-confirmation__cancel,
+.scn-confirmation__confirm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--scn-space-2);
+  min-height: 2.5rem;
+  padding:
+    0 var(--scn-space-4);
+  border-radius: var(--scn-radius-md);
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-sm);
+  font-weight: var(--scn-weight-medium);
+  cursor: pointer;
+  transition:
+    background-color var(--scn-duration-fast)
+      var(--scn-ease-standard),
+    border-color var(--scn-duration-fast)
+      var(--scn-ease-standard),
+    color var(--scn-duration-fast)
+      var(--scn-ease-standard);
+}
+
+.scn-confirmation__cancel {
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+  border: 1px solid var(--scn-border);
+
+  &:hover {
+    background: var(--scn-muted);
+  }
+}
+
+.scn-confirmation__confirm {
+  background: var(--scn-primary);
+  color: var(--scn-primary-foreground);
+  border: 1px solid var(--scn-primary);
+
+  &:hover {
+    background: color-mix(
+      in srgb,
+      var(--scn-primary) 88%,
+      black
+    );
+  }
+}
+
+.scn-confirmation--danger
+  .scn-confirmation__confirm {
+  background: var(--scn-destructive);
+  color: var(--scn-background);
+  border-color: var(--scn-destructive);
+
+  &:hover {
+    background: color-mix(
+      in srgb,
+      var(--scn-destructive) 88%,
+      black
+    );
+  }
+}
+
+.scn-confirmation__cancel:focus-visible,
+.scn-confirmation__confirm:focus-visible {
+  outline: 2px solid var(--scn-ring);
+  outline-offset: 2px;
+}
+
+.scn-confirmation__cancel:disabled,
+.scn-confirmation__confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.scn-confirmation__spinner {
+  animation:
+    scn-confirmation-spin
+    0.8s linear infinite;
+}
+
+@keyframes scn-confirmation-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes scn-confirmation-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 30rem) {
+  .scn-confirmation {
+    padding: var(--scn-space-5);
+  }
+
+  .scn-confirmation__actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .scn-confirmation__cancel,
+  .scn-confirmation__confirm {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scn-confirmation {
+    animation: none;
+  }
+
+  .scn-confirmation__spinner {
+    animation: none;
+  }
+}
