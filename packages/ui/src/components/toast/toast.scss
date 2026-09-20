@@ -5,42 +5,33 @@
 .scn-toast__viewport {
   position: fixed;
   z-index: 200;
-
   right: var(--scn-space-4);
   bottom: var(--scn-space-4);
-
   display: flex;
   flex-direction: column;
   gap: var(--scn-space-3);
-
   width: min(
     calc(100vw - 2rem),
     24rem
   );
-
   pointer-events: none;
 }
 
 .scn-toast {
   pointer-events: auto;
-
   display: flex;
   align-items: flex-start;
   gap: var(--scn-space-3);
-
   padding: var(--scn-space-4);
-
   background: var(--scn-background);
   color: var(--scn-foreground);
-
   border: 1px solid var(--scn-border);
   border-radius: var(--scn-radius-md);
-
   box-shadow:
     0 10px 15px rgb(0 0 0 / 0.1),
     0 4px 6px rgb(0 0 0 / 0.08);
-
-  animation: scn-toast-in
+  animation:
+    scn-toast-in
     var(--scn-duration-fast)
     var(--scn-ease-standard);
 }
@@ -58,9 +49,7 @@
 
 .scn-toast__description {
   margin-top: var(--scn-space-1);
-
   color: var(--scn-muted-foreground);
-
   font-family: var(--scn-font-sans);
   font-size: var(--scn-text-sm);
   line-height: 1.5;
@@ -68,23 +57,15 @@
 
 .scn-toast__close {
   flex: 0 0 auto;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   width: 1.75rem;
   height: 1.75rem;
-
   background: transparent;
   color: var(--scn-muted-foreground);
-
   border: 0;
   border-radius: var(--scn-radius-sm);
-
-  font-size: 1.25rem;
-  line-height: 1;
-
   cursor: pointer;
 
   &:hover {
@@ -98,20 +79,52 @@
   }
 }
 
+/* Success */
+
 .scn-toast--success {
-  border-left: 3px solid var(--scn-success);
+  background: color-mix(
+    in srgb,
+    var(--scn-success) 10%,
+    var(--scn-background)
+  );
+
+  border-color: var(--scn-success);
 }
+
+/* Info */
 
 .scn-toast--info {
-  border-left: 3px solid var(--scn-ring);
+  background: color-mix(
+    in srgb,
+    var(--scn-ring) 10%,
+    var(--scn-background)
+  );
+
+  border-color: var(--scn-ring);
 }
+
+/* Warning */
 
 .scn-toast--warning {
-  border-left: 3px solid var(--scn-warning);
+  background: color-mix(
+    in srgb,
+    var(--scn-warning) 10%,
+    var(--scn-background)
+  );
+
+  border-color: var(--scn-warning);
 }
 
+/* Danger */
+
 .scn-toast--danger {
-  border-left: 3px solid var(--scn-destructive);
+  background: color-mix(
+    in srgb,
+    var(--scn-destructive) 10%,
+    var(--scn-background)
+  );
+
+  border-color: var(--scn-destructive);
 }
 
 @keyframes scn-toast-in {

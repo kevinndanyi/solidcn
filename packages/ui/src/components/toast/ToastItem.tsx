@@ -1,5 +1,6 @@
 import type { Component } from 'solid-js'
 import { Show, splitProps } from 'solid-js'
+import { X } from 'lucide-solid'
 import { cx } from '@solidcn/cx'
 
 import {
@@ -65,7 +66,11 @@ export const ToastItem: Component<
                     dismiss(local.toast.id)
                 }
             >
-                ×
+                <X
+                    size={16}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                />
             </button>
         </div>
     )

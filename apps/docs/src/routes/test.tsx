@@ -1,59 +1,115 @@
 
 import {
-  Pagination,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
+  Button,
+  ToastProvider,
+  useToast,
 } from '@solidcn/ui'
 
-export default function Test() {
+function ToastDemo() {
+  const { toast } = useToast()
+
   return (
-    <main
+    <div
       style={{
-        padding: '2rem',
-        'max-width': '42rem',
-        margin: '0 auto',
+        display: 'flex',
+        'flex-wrap': 'wrap',
+        gap: '0.75rem',
       }}
     >
-      <h1>Pagination</h1>
-
-      <p
-        style={{
-          color:
-            'var(--scn-muted-foreground)',
-          'margin-bottom': '2rem',
-        }}
+      <Button
+        onClick={() =>
+          toast({
+            title: 'Default notification',
+            description:
+              'This is a default toast.',
+          })
+        }
       >
-        Test pagination controls, active page
-        state, navigation arrows, and the
-        ellipsis icon.
-      </p>
+        Default
+      </Button>
 
-      <Pagination>
-        <PaginationPrevious />
+      <Button
+        onClick={() =>
+          toast({
+            title: 'Trade saved',
+            description:
+              'Your trade journal has been updated.',
+            variant: 'success',
+          })
+        }
+      >
+        Success
+      </Button>
 
-        <PaginationItem>
-          1
-        </PaginationItem>
+      <Button
+        onClick={() =>
+          toast({
+            title: 'Market update',
+            description:
+              'EURUSD is approaching your watch level.',
+            variant: 'info',
+          })
+        }
+      >
+        Info
+      </Button>
 
-        <PaginationItem active>
-          2
-        </PaginationItem>
+      <Button
+        onClick={() =>
+          toast({
+            title: 'Risk warning',
+            description:
+              'Your daily risk limit is almost reached.',
+            variant: 'warning',
+          })
+        }
+      >
+        Warning
+      </Button>
 
-        <PaginationItem>
-          3
-        </PaginationItem>
-
-        <PaginationEllipsis />
-
-        <PaginationItem>
-          10
-        </PaginationItem>
-
-        <PaginationNext />
-      </Pagination>
-    </main>
+      <Button
+        variant="danger"
+        onClick={() =>
+          toast({
+            title: 'Trade failed',
+            description:
+              'The trade could not be submitted.',
+            variant: 'danger',
+          })
+        }
+      >
+        Danger
+      </Button>
+    </div>
   )
 }
 
+export default function Test() {
+  return (
+    <ToastProvider>
+      <main
+        style={{
+          padding: '2rem',
+          'max-width': '42rem',
+          margin: '0 auto',
+        }}
+      >
+        <h1>Toast</h1>
+
+        <p
+          style={{
+            color:
+              'var(--scn-muted-foreground)',
+            'margin-bottom': '2rem',
+          }}
+        >
+          Test all toast variants, automatic
+          dismissal, manual dismissal, and the
+          Lucide close icon.
+        </p>
+
+        <ToastDemo />
+      </main>
+    </ToastProvider>
+  )
+}
