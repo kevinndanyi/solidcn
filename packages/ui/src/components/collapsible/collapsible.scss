@@ -1,0 +1,57 @@
+.scn-collapsible {
+  width: 100%;
+}
+
+.scn-collapsible__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--scn-space-2);
+  width: 100%;
+  min-height: 2.5rem;
+  padding:
+    var(--scn-space-2)
+    var(--scn-space-3);
+  border: 1px solid var(--scn-border);
+  border-radius: var(--scn-radius-md);
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+  font: inherit;
+  font-size: var(--scn-font-size-sm);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background
+    var(--scn-duration-fast)
+    var(--scn-ease-standard);
+
+  &:hover {
+    background: var(--scn-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--scn-ring);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.scn-collapsible__content {
+  margin-top: var(--scn-space-2);
+  padding:
+    var(--scn-space-3)
+    var(--scn-space-4);
+  border-left: 2px solid var(--scn-border);
+  color: var(--scn-muted-foreground);
+  font-size: var(--scn-font-size-sm);
+  line-height: 1.5;
+
+  &[hidden] {
+    display: none;
+  }
+}

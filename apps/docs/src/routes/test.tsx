@@ -1,18 +1,24 @@
+import { createSignal } from 'solid-js'
+
 import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
+    Button,
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
 } from '@solidcn/ui'
 
 export default function TestPage() {
+    const [
+        controlledOpen,
+        setControlledOpen,
+    ] = createSignal(false)
+
     return (
         <main
             style={{
@@ -24,12 +30,13 @@ export default function TestPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        Breadcrumb
+                        Collapsible
                     </CardTitle>
 
                     <CardDescription>
-                        Navigation hierarchy for
-                        nested pages.
+                        Expandable content with
+                        controlled and
+                        uncontrolled state.
                     </CardDescription>
                 </CardHeader>
 
@@ -37,83 +44,74 @@ export default function TestPage() {
                     <div
                         style={{
                             display: 'flex',
-                            'flex-direction': 'column',
-                            gap: '2rem',
+                            'flex-direction':
+                                'column',
+                            gap: '1.5rem',
                         }}
                     >
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/">
-                                        Home
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
+                        <Collapsible
+                            defaultOpen
+                        >
+                            <CollapsibleTrigger>
+                                Advanced settings
+                            </CollapsibleTrigger>
 
-                                <BreadcrumbSeparator />
+                            <CollapsibleContent>
+                                These settings are
+                                visible when the
+                                section is expanded.
+                            </CollapsibleContent>
+                        </Collapsible>
 
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/dashboard">
-                                        Dashboard
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
+                        <Collapsible
+                            open={
+                                controlledOpen()
+                            }
+                            onOpenChange={
+                                setControlledOpen
+                            }
+                        >
+                            <CollapsibleTrigger>
+                                Controlled section
+                            </CollapsibleTrigger>
 
-                                <BreadcrumbSeparator />
+                            <CollapsibleContent>
+                                This section is
+                                controlled by the
+                                parent component.
+                            </CollapsibleContent>
+                        </Collapsible>
 
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/dashboard/settings">
-                                        Settings
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
+                        <Collapsible
+                            disabled
+                        >
+                            <CollapsibleTrigger>
+                                Disabled section
+                            </CollapsibleTrigger>
 
-                                <BreadcrumbSeparator />
-
-                                <BreadcrumbItem>
-                                    <BreadcrumbPage>
-                                        Profile
-                                    </BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
-
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/">
-                                        Home
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
-
-                                <BreadcrumbSeparator>
-                                    /
-                                </BreadcrumbSeparator>
-
-                                <BreadcrumbItem>
-                                    <BreadcrumbPage>
-                                        Reports
-                                    </BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
-
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/">
-                                        Home
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
-
-                                <BreadcrumbSeparator />
-
-                                <BreadcrumbItem>
-                                    <BreadcrumbPage>
-                                        Current Page
-                                    </BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
+                            <CollapsibleContent>
+                                You should not be
+                                able to open this
+                                section.
+                            </CollapsibleContent>
+                        </Collapsible>
                     </div>
                 </CardContent>
+
+                <CardFooter>
+                    <Button
+                        variant="secondary"
+                        onClick={() =>
+                            setControlledOpen(
+                                !controlledOpen(),
+                            )
+                        }
+                    >
+                        {controlledOpen()
+                            ? 'Close controlled'
+                            : 'Open controlled'}
+                    </Button>
+                </CardFooter>
             </Card>
         </main>
     )
