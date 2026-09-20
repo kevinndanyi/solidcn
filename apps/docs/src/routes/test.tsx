@@ -1,9 +1,10 @@
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+  Pagination,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
 } from '@solidcn/ui'
 
 export default function Test() {
@@ -15,7 +16,7 @@ export default function Test() {
         margin: '0 auto',
       }}
     >
-      <h1>Dropdown Menu</h1>
+      <h1>Pagination</h1>
 
       <p
         style={{
@@ -24,38 +25,34 @@ export default function Test() {
           'margin-bottom': '2rem',
         }}
       >
-        Test opening, closing, keyboard
-        navigation, disabled items, and the
-        Lucide chevron.
+        Test pagination controls, active page
+        state, navigation arrows, and the
+        ellipsis icon.
       </p>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          Account
-        </DropdownMenuTrigger>
+      <Pagination>
+        <PaginationPrevious />
 
-        <DropdownMenuContent>
-          <DropdownMenuItem>
-            Profile
-          </DropdownMenuItem>
+        <PaginationItem>
+          1
+        </PaginationItem>
 
-          <DropdownMenuItem>
-            Settings
-          </DropdownMenuItem>
+        <PaginationItem active>
+          2
+        </PaginationItem>
 
-          <DropdownMenuItem>
-            Billing
-          </DropdownMenuItem>
+        <PaginationItem>
+          3
+        </PaginationItem>
 
-          <DropdownMenuItem disabled>
-            Disabled
-          </DropdownMenuItem>
+        <PaginationEllipsis />
 
-          <DropdownMenuItem>
-            Sign out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+        <PaginationItem>
+          10
+        </PaginationItem>
+
+        <PaginationNext />
+      </Pagination>
     </main>
   )
 }

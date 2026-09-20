@@ -1,32 +1,41 @@
+
 import type { Component, JSX } from 'solid-js'
 import { splitProps } from 'solid-js'
+import { MoreHorizontal } from 'lucide-solid'
 import { cx } from '@solidcn/cx'
 
 import './pagination.scss'
 
 export interface PaginationEllipsisProps
-    extends JSX.HTMLAttributes<HTMLSpanElement> {
-    class?: string
+  extends JSX.HTMLAttributes<HTMLSpanElement> {
+  class?: string
 }
 
 export const PaginationEllipsis: Component<
-    PaginationEllipsisProps
+  PaginationEllipsisProps
 > = (props) => {
-    const [local, rest] = splitProps(props, [
-        'class',
-        'children',
-    ])
+  const [local, rest] = splitProps(props, [
+    'class',
+    'children',
+  ])
 
-    return (
-        <span
-            {...rest}
-            aria-hidden="true"
-            class={cx(
-                'scn-pagination__ellipsis',
-                local.class,
-            )}
-        >
-            {local.children ?? '…'}
-        </span>
-    )
+  return (
+    <span
+      {...rest}
+      aria-hidden="true"
+      class={cx(
+        'scn-pagination__ellipsis',
+        local.class,
+      )}
+    >
+      {local.children ?? (
+        <MoreHorizontal
+          size={16}
+          strokeWidth={2}
+          aria-hidden="true"
+        />
+      )}
+    </span>
+  )
 }
+
