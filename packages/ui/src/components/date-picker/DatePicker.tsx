@@ -6,6 +6,9 @@ import {
   splitProps,
 } from 'solid-js'
 import { cx } from '@solidcn/cx'
+import {
+  CalendarDays,
+} from 'lucide-solid'
 
 import { Calendar } from '../calendar'
 import {
@@ -116,12 +119,12 @@ export const DatePicker: Component<
             'scn-date-picker__trigger--placeholder',
           )}
         >
-          <span
+          <CalendarDays
+            size={16}
+            strokeWidth={2}
             aria-hidden="true"
             class="scn-date-picker__icon"
-          >
-            📅
-          </span>
+          />
 
           <span>
             {selectedDate()
