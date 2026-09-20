@@ -90,3 +90,20 @@
   font-size: var(--scn-font-size-sm);
   color: var(--scn-muted-foreground);
 }
+
+.scn-command__input-wrapper {
+  position: relative;
+}
+
+.scn-command__input-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--scn-space-3);
+  transform: translateY(-50%);
+  color: var(--scn-muted-foreground);
+  pointer-events: none;
+}
+
+.scn-command__input {
+  padding-left: 2.5rem;
+}

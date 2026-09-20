@@ -1,115 +1,82 @@
-
 import {
-  Button,
-  ToastProvider,
-  useToast,
+    Command,
+    CommandInput,
+    CommandList,
+    CommandEmpty,
+    CommandGroup,
+    CommandItem,
 } from '@solidcn/ui'
 
-function ToastDemo() {
-  const { toast } = useToast()
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        'flex-wrap': 'wrap',
-        gap: '0.75rem',
-      }}
-    >
-      <Button
-        onClick={() =>
-          toast({
-            title: 'Default notification',
-            description:
-              'This is a default toast.',
-          })
-        }
-      >
-        Default
-      </Button>
-
-      <Button
-        onClick={() =>
-          toast({
-            title: 'Trade saved',
-            description:
-              'Your trade journal has been updated.',
-            variant: 'success',
-          })
-        }
-      >
-        Success
-      </Button>
-
-      <Button
-        onClick={() =>
-          toast({
-            title: 'Market update',
-            description:
-              'EURUSD is approaching your watch level.',
-            variant: 'info',
-          })
-        }
-      >
-        Info
-      </Button>
-
-      <Button
-        onClick={() =>
-          toast({
-            title: 'Risk warning',
-            description:
-              'Your daily risk limit is almost reached.',
-            variant: 'warning',
-          })
-        }
-      >
-        Warning
-      </Button>
-
-      <Button
-        variant="danger"
-        onClick={() =>
-          toast({
-            title: 'Trade failed',
-            description:
-              'The trade could not be submitted.',
-            variant: 'danger',
-          })
-        }
-      >
-        Danger
-      </Button>
-    </div>
-  )
-}
-
 export default function Test() {
-  return (
-    <ToastProvider>
-      <main
-        style={{
-          padding: '2rem',
-          'max-width': '42rem',
-          margin: '0 auto',
-        }}
-      >
-        <h1>Toast</h1>
-
-        <p
-          style={{
-            color:
-              'var(--scn-muted-foreground)',
-            'margin-bottom': '2rem',
-          }}
+    return (
+        <main
+            style={{
+                padding: '2rem',
+                'max-width': '42rem',
+                margin: '0 auto',
+            }}
         >
-          Test all toast variants, automatic
-          dismissal, manual dismissal, and the
-          Lucide close icon.
-        </p>
+            <h1>Command</h1>
 
-        <ToastDemo />
-      </main>
-    </ToastProvider>
-  )
+            <p
+                style={{
+                    color:
+                        'var(--scn-muted-foreground)',
+                    'margin-bottom': '2rem',
+                }}
+            >
+                Test the command input, search
+                filtering, keyboard navigation, and
+                the Lucide search icon.
+            </p>
+
+            <Command>
+                <CommandInput
+                    placeholder="Search commands..."
+                />
+
+                <CommandList>
+                    <CommandEmpty>
+                        No commands found.
+                    </CommandEmpty>
+
+                    <CommandGroup heading="Navigation">
+                        <CommandItem value="dashboard">
+                            Dashboard
+                        </CommandItem>
+
+                        <CommandItem value="trading accounts">
+                            Trading Accounts
+                        </CommandItem>
+
+                        <CommandItem value="trade journal">
+                            Trade Journal
+                        </CommandItem>
+
+                        <CommandItem value="analytics">
+                            Analytics
+                        </CommandItem>
+                    </CommandGroup>
+
+                    <CommandGroup heading="Actions">
+                        <CommandItem value="new trade">
+                            New Trade
+                        </CommandItem>
+
+                        <CommandItem value="deposit">
+                            Deposit
+                        </CommandItem>
+
+                        <CommandItem value="withdraw">
+                            Withdraw
+                        </CommandItem>
+
+                        <CommandItem value="settings">
+                            Settings
+                        </CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>
+        </main>
+    )
 }

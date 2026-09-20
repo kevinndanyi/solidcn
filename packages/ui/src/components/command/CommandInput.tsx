@@ -3,6 +3,7 @@ import {
     createUniqueId,
     splitProps,
 } from 'solid-js'
+import { Search } from 'lucide-solid'
 import { cx } from '@solidcn/cx'
 
 import { useCommand } from './Command'
@@ -37,6 +38,13 @@ export const CommandInput: Component<
 
     return (
         <div class="scn-command__input-wrapper">
+            <Search
+                size={16}
+                strokeWidth={2}
+                aria-hidden="true"
+                class="scn-command__input-icon"
+            />
+
             <input
                 {...rest}
                 id={inputId}

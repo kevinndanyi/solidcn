@@ -6,6 +6,7 @@ import {
     onMount,
     onCleanup,
 } from 'solid-js'
+import { Check } from 'lucide-solid'
 import { cx } from '@solidcn/cx'
 
 import { useCommand } from './Command'
@@ -99,7 +100,10 @@ export const CommandItem: Component<
                         aria-hidden="true"
                         class="scn-command__check"
                     >
-                        ✓
+                        <Check
+                            size={16}
+                            strokeWidth={2}
+                        />
                     </span>
                 </Show>
             </div>
