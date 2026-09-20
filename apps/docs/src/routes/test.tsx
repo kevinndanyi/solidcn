@@ -1,24 +1,13 @@
 import {
-    createSignal,
-} from 'solid-js'
-
-import {
-    Button,
+    ProgressCircle,
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-    InputOTP,
 } from '@solidcn/ui'
 
 export default function TestPage() {
-    const [value, setValue] =
-        createSignal('')
-
-    const [controlledValue, setControlledValue] =
-        createSignal('123')
-
     return (
         <main
             style={{
@@ -32,7 +21,7 @@ export default function TestPage() {
                     'margin-bottom': '0.5rem',
                 }}
             >
-                Input OTP
+                Progress Circle
             </h1>
 
             <p
@@ -42,140 +31,142 @@ export default function TestPage() {
                     'margin-bottom': '2rem',
                 }}
             >
-                One-time password input with
-                keyboard and paste support.
+                Circular progress indicator with
+                configurable size and stroke.
             </p>
 
-            <div
+            <Card>
+                <CardHeader>
+                    <CardTitle>
+                        Examples
+                    </CardTitle>
+
+                    <CardDescription>
+                        Progress circles using the same
+                        semantic tokens as the rest of
+                        SolidCN.
+                    </CardDescription>
+                </CardHeader>
+
+                <CardContent>
+                    <div
+                        style={{
+                            display: 'flex',
+                            'align-items': 'center',
+                            'justify-content': 'center',
+                            'flex-wrap': 'wrap',
+                            gap: '2rem',
+                        }}
+                    >
+                        <ProgressCircle
+                            value={25}
+                            label="25 percent complete"
+                        />
+
+                        <ProgressCircle
+                            value={50}
+                            size={80}
+                            label="50 percent complete"
+                        />
+
+                        <ProgressCircle
+                            value={75}
+                            size={96}
+                            strokeWidth={8}
+                            label="75 percent complete"
+                        />
+
+                        <ProgressCircle
+                            value={100}
+                            size={112}
+                            strokeWidth={10}
+                            label="100 percent complete"
+                        />
+                    </div>
+                </CardContent>
+            </Card>
+
+            <Card
                 style={{
-                    display: 'flex',
-                    'flex-direction': 'column',
-                    gap: '2rem',
+                    'margin-top': '1.5rem',
                 }}
             >
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Verification code
-                        </CardTitle>
+                <CardHeader>
+                    <CardTitle>
+                        Without percentage
+                    </CardTitle>
 
-                        <CardDescription>
-                            Enter the 6-digit code sent to
-                            your phone.
-                        </CardDescription>
-                    </CardHeader>
+                    <CardDescription>
+                        The center can contain custom
+                        content.
+                    </CardDescription>
+                </CardHeader>
 
-                    <CardContent>
-                        <InputOTP
-                            length={6}
-                            aria-label="Verification code"
-                            onChange={setValue}
-                        />
-
-                        <p
-                            style={{
-                                'margin-top': '1rem',
-                                color:
-                                    'var(--scn-muted-foreground)',
-                                'font-size':
-                                    'var(--scn-text-sm)',
-                            }}
+                <CardContent>
+                    <div
+                        style={{
+                            display: 'flex',
+                            'justify-content': 'center',
+                        }}
+                    >
+                        <ProgressCircle
+                            value={68}
+                            size={120}
+                            strokeWidth={8}
+                            showValue={false}
+                            label="Loading"
                         >
-                            Current value: {value() || '—'}
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Four-digit PIN
-                        </CardTitle>
-
-                        <CardDescription>
-                            Masked input with four slots.
-                        </CardDescription>
-                    </CardHeader>
-
-                    <CardContent>
-                        <InputOTP
-                            length={4}
-                            mask
-                            aria-label="PIN"
-                        />
-                    </CardContent>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Controlled input
-                        </CardTitle>
-
-                        <CardDescription>
-                            The value is controlled by the
-                            parent component.
-                        </CardDescription>
-                    </CardHeader>
-
-                    <CardContent>
-                        <InputOTP
-                            length={6}
-                            value={controlledValue()}
-                            onChange={setControlledValue}
-                            aria-label="Controlled OTP"
-                        />
-
-                        <div
-                            style={{
-                                display: 'flex',
-                                'align-items': 'center',
-                                gap: '1rem',
-                                'margin-top': '1rem',
-                            }}
-                        >
-                            <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() =>
-                                    setControlledValue(
-                                        '654321',
-                                    )
-                                }
+                            <span
+                                style={{
+                                    'font-size':
+                                        'var(--scn-text-xs)',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                }}
                             >
-                                Set 654321
-                            </Button>
+                                Loading
+                            </span>
+                        </ProgressCircle>
+                    </div>
+                </CardContent>
+            </Card>
 
-                            <Button
-                                type="button"
-                                variant="ghost"
-                                onClick={() =>
-                                    setControlledValue('')
-                                }
-                            >
-                                Clear
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
+            <Card
+                style={{
+                    'margin-top': '1.5rem',
+                }}
+            >
+                <CardHeader>
+                    <CardTitle>
+                        Custom maximum
+                    </CardTitle>
+                </CardHeader>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Disabled
-                        </CardTitle>
-                    </CardHeader>
-
-                    <CardContent>
-                        <InputOTP
-                            length={6}
-                            defaultValue="123456"
-                            disabled
-                            aria-label="Disabled OTP"
+                <CardContent>
+                    <div
+                        style={{
+                            display: 'flex',
+                            gap: '2rem',
+                            'align-items': 'center',
+                            'justify-content': 'center',
+                        }}
+                    >
+                        <ProgressCircle
+                            value={3}
+                            max={5}
+                            size={80}
+                            label="3 of 5 complete"
                         />
-                    </CardContent>
-                </Card>
-            </div>
+
+                        <ProgressCircle
+                            value={7}
+                            max={10}
+                            size={80}
+                            label="7 of 10 complete"
+                        />
+                    </div>
+                </CardContent>
+            </Card>
         </main>
     )
 }
