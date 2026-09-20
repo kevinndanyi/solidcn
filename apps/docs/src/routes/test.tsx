@@ -8,46 +8,14 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-    Combobox,
-    Field,
-    FieldDescription,
-    FieldError,
-    Input,
-    Label,
-    Textarea,
+    Progress,
 } from '@solidcn/ui'
-
-const countries = [
-    {
-        value: 'kenya',
-        label: 'Kenya',
-    },
-    {
-        value: 'uganda',
-        label: 'Uganda',
-    },
-    {
-        value: 'tanzania',
-        label: 'Tanzania',
-    },
-    {
-        value: 'rwanda',
-        label: 'Rwanda',
-    },
-]
 
 export default function TestPage() {
     const [
-        email,
-        setEmail,
-    ] = createSignal('')
-
-    const [
-        country,
-        setCountry,
-    ] = createSignal<
-        string | undefined
-    >()
+        value,
+        setValue,
+    ] = createSignal(72)
 
     return (
         <main
@@ -60,126 +28,129 @@ export default function TestPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        Field Components
+                        Progress
                     </CardTitle>
 
                     <CardDescription>
-                        Composable form field
-                        primitives.
+                        A simple determinate
+                        progress indicator.
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent>
-                    <Field>
-                        <Label for="email">
-                            Email address
-                        </Label>
-
-                        <Input
-                            id="email"
-                            type="email"
-                            value={email()}
-                            placeholder="you@example.com"
-                            onInput={(event) =>
-                                setEmail(
-                                    event.currentTarget
-                                        .value,
-                                )
-                            }
-                        />
-
-                        <FieldDescription>
-                            We'll never share your
-                            email address.
-                        </FieldDescription>
-
-                        <FieldError>
-                            {email() &&
-                                !email().includes('@')
-                                ? 'Please enter a valid email address.'
-                                : undefined}
-                        </FieldError>
-                    </Field>
-
                     <div
                         style={{
-                            height: '1.5rem',
+                            display: 'flex',
+                            'flex-direction':
+                                'column',
+                            gap: '1.5rem',
                         }}
-                    />
+                    >
+                        <div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    'justify-content':
+                                        'space-between',
+                                    'margin-bottom':
+                                        '0.5rem',
+                                    'font-size':
+                                        '0.875rem',
+                                }}
+                            >
+                                <span>
+                                    Current progress
+                                </span>
 
-                    <Field>
-                        <Label for="country">
-                            Country
-                        </Label>
+                                <span>
+                                    {value()}%
+                                </span>
+                            </div>
 
-                        <Combobox
-                            options={countries}
-                            value={country()}
-                            onChange={setCountry}
-                            placeholder="Select your country"
-                            searchPlaceholder="Search countries..."
-                            clearable
-                        />
+                            <Progress
+                                value={value()}
+                                label="Current progress"
+                            />
+                        </div>
 
-                        <FieldDescription>
-                            Select your country of
-                            residence.
-                        </FieldDescription>
-                    </Field>
+                        <div>
+                            <p
+                                style={{
+                                    margin:
+                                        '0 0 0.5rem',
+                                    'font-size':
+                                        '0.875rem',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                }}
+                            >
+                                Custom maximum
+                            </p>
 
-                    <div
-                        style={{
-                            height: '1.5rem',
-                        }}
-                    />
+                            <Progress
+                                value={75}
+                                max={150}
+                                label="Custom progress"
+                            />
+                        </div>
 
-                    <Field>
-                        <Label for="bio">
-                            About you
-                        </Label>
+                        <div>
+                            <p
+                                style={{
+                                    margin:
+                                        '0 0 0.5rem',
+                                    'font-size':
+                                        '0.875rem',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                }}
+                            >
+                                Clamped values
+                            </p>
 
-                        <Textarea
-                            id="bio"
-                            placeholder="Tell us something about yourself..."
-                        />
-
-                        <FieldDescription>
-                            Keep it short and
-                            informative.
-                        </FieldDescription>
-                    </Field>
-
-                    <div
-                        style={{
-                            height: '1.5rem',
-                        }}
-                    />
-
-                    <Field>
-                        <Label for="error-demo">
-                            Validation example
-                        </Label>
-
-                        <Input
-                            id="error-demo"
-                            aria-invalid="true"
-                            value="invalid value"
-                        />
-
-                        <FieldError>
-                            This field contains
-                            an invalid value.
-                        </FieldError>
-                    </Field>
+                            <Progress
+                                value={120}
+                                label="Clamped progress"
+                            />
+                        </div>
+                    </div>
                 </CardContent>
 
                 <CardFooter>
-                    <Button>
-                        Submit
+                    <Button
+                        variant="secondary"
+                        onClick={() =>
+                            setValue(
+                                Math.max(
+                                    0,
+                                    value() - 10,
+                                ),
+                            )
+                        }
+                    >
+                        −10
                     </Button>
 
-                    <Button variant="secondary">
-                        Cancel
+                    <Button
+                        onClick={() =>
+                            setValue(
+                                Math.min(
+                                    100,
+                                    value() + 10,
+                                ),
+                            )
+                        }
+                    >
+                        +10
+                    </Button>
+
+                    <Button
+                        variant="ghost"
+                        onClick={() =>
+                            setValue(0)
+                        }
+                    >
+                        Reset
                     </Button>
                 </CardFooter>
             </Card>

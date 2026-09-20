@@ -1,0 +1,27 @@
+.scn-progress {
+  width: 100%;
+}
+
+.scn-progress__track {
+  width: 100%;
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--scn-muted);
+}
+
+.scn-progress__indicator {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--scn-primary);
+  transition:
+    width
+    var(--scn-duration-normal)
+    var(--scn-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scn-progress__indicator {
+    transition: none;
+  }
+}
