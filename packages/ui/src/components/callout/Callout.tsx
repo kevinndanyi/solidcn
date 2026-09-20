@@ -1,0 +1,44 @@
+import type { Component, JSX } from 'solid-js'
+import { splitProps } from 'solid-js'
+import { cx } from '@solidcn/cx'
+
+import './callout.scss'
+
+export type CalloutVariant =
+  | 'default'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'danger'
+
+export interface CalloutProps
+  extends JSX.HTMLAttributes<HTMLDivElement> {
+  class?: string
+  variant?: CalloutVariant
+}
+
+export const Callout: Component<CalloutProps> = (
+  props,
+) => {
+  const [local, rest] = splitProps(props, [
+    'class',
+    'children',
+    'variant',
+  ])
+
+  const variant = () =>
+    local.variant ?? 'default'
+
+  return (
+    <div
+      {...rest}
+      class={cx(
+        'scn-callout',
+        `scn-callout--${variant()}`,
+        local.class,
+      )}
+    >
+      {local.children}
+    </div>
+  )
+}
