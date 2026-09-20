@@ -1,10 +1,11 @@
 import {
-    AspectRatio,
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+    Form,
+    Field,
+    Label,
+    Input,
+    FieldDescription,
+    FieldError,
+    Button,
 } from '@solidcn/ui'
 
 export default function TestPage() {
@@ -12,167 +13,92 @@ export default function TestPage() {
         <main
             style={{
                 padding: '2rem',
-                'max-width': '48rem',
+                'max-width': '40rem',
                 margin: '0 auto',
             }}
         >
-            <Card>
-                <CardHeader>
-                    <CardTitle>
-                        AspectRatio
-                    </CardTitle>
+            <h1
+                style={{
+                    'margin-bottom': '0.5rem',
+                }}
+            >
+                Form
+            </h1>
 
-                    <CardDescription>
-                        Maintain consistent
-                        proportions for media and
-                        responsive content.
-                    </CardDescription>
-                </CardHeader>
+            <p
+                style={{
+                    color: 'var(--scn-muted-foreground)',
+                    'margin-bottom': '2rem',
+                }}
+            >
+                A native, composable form using
+                SolidCN field primitives.
+            </p>
 
-                <CardContent>
-                    <div
-                        style={{
-                            display: 'flex',
-                            'flex-direction': 'column',
-                            gap: '2rem',
-                        }}
-                    >
-                        <div>
-                            <p
-                                style={{
-                                    margin: '0 0 0.5rem',
-                                    color:
-                                        'var(--scn-muted-foreground)',
-                                    'font-size':
-                                        'var(--scn-font-size-sm)',
-                                }}
-                            >
-                                16:9
-                            </p>
+            <Form
+                onSubmit={(event) => {
+                    event.preventDefault()
 
-                            <AspectRatio ratio={16 / 9}>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        'align-items': 'center',
-                                        'justify-content':
-                                            'center',
-                                        background:
-                                            'var(--scn-muted)',
-                                        color:
-                                            'var(--scn-muted-foreground)',
-                                    }}
-                                >
-                                    16 : 9
-                                </div>
-                            </AspectRatio>
-                        </div>
+                    console.log(
+                        'Form submitted',
+                    )
+                }}
+            >
+                <Field>
+                    <Label for="name">
+                        Full name
+                    </Label>
 
-                        <div>
-                            <p
-                                style={{
-                                    margin: '0 0 0.5rem',
-                                    color:
-                                        'var(--scn-muted-foreground)',
-                                    'font-size':
-                                        'var(--scn-font-size-sm)',
-                                }}
-                            >
-                                4:3
-                            </p>
+                    <Input
+                        id="name"
+                        name="name"
+                        placeholder="Kevin Ndanyi"
+                    />
 
-                            <AspectRatio ratio={4 / 3}>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        'align-items': 'center',
-                                        'justify-content':
-                                            'center',
-                                        background:
-                                            'var(--scn-muted)',
-                                        color:
-                                            'var(--scn-muted-foreground)',
-                                    }}
-                                >
-                                    4 : 3
-                                </div>
-                            </AspectRatio>
-                        </div>
+                    <FieldDescription>
+                        Enter your full name.
+                    </FieldDescription>
+                </Field>
 
-                        <div>
-                            <p
-                                style={{
-                                    margin: '0 0 0.5rem',
-                                    color:
-                                        'var(--scn-muted-foreground)',
-                                    'font-size':
-                                        'var(--scn-font-size-sm)',
-                                }}
-                            >
-                                1:1
-                            </p>
+                <Field>
+                    <Label for="email">
+                        Email
+                    </Label>
 
-                            <div
-                                style={{
-                                    width: '12rem',
-                                }}
-                            >
-                                <AspectRatio ratio={1}>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            'align-items':
-                                                'center',
-                                            'justify-content':
-                                                'center',
-                                            background:
-                                                'var(--scn-muted)',
-                                            color:
-                                                'var(--scn-muted-foreground)',
-                                        }}
-                                    >
-                                        1 : 1
-                                    </div>
-                                </AspectRatio>
-                            </div>
-                        </div>
+                    <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="kevin@example.com"
+                    />
 
-                        <div>
-                            <p
-                                style={{
-                                    margin: '0 0 0.5rem',
-                                    color:
-                                        'var(--scn-muted-foreground)',
-                                    'font-size':
-                                        'var(--scn-font-size-sm)',
-                                }}
-                            >
-                                Custom class
-                            </p>
+                    <FieldDescription>
+                        We'll never share your email.
+                    </FieldDescription>
+                </Field>
 
-                            <AspectRatio
-                                ratio={21 / 9}
-                                class="custom-ratio"
-                            >
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        'align-items': 'center',
-                                        'justify-content':
-                                            'center',
-                                        background:
-                                            'var(--scn-muted)',
-                                        color:
-                                            'var(--scn-muted-foreground)',
-                                    }}
-                                >
-                                    21 : 9
-                                </div>
-                            </AspectRatio>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+                <Field>
+                    <Label for="username">
+                        Username
+                    </Label>
+
+                    <Input
+                        id="username"
+                        name="username"
+                        placeholder="kevin"
+                        aria-invalid="true"
+                        aria-describedby="username-error"
+                    />
+
+                    <FieldError id="username-error">
+                        This username is already taken.
+                    </FieldError>
+                </Field>
+
+                <Button type="submit">
+                    Create account
+                </Button>
+            </Form>
         </main>
     )
 }
