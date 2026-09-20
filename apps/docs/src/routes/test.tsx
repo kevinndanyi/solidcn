@@ -1,12 +1,10 @@
 import {
+    AspectRatio,
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
 } from '@solidcn/ui'
 
 export default function TestPage() {
@@ -21,13 +19,13 @@ export default function TestPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        HoverCard
+                        AspectRatio
                     </CardTitle>
 
                     <CardDescription>
-                        Contextual information
-                        revealed on hover or
-                        keyboard focus.
+                        Maintain consistent
+                        proportions for media and
+                        responsive content.
                     </CardDescription>
                 </CardHeader>
 
@@ -35,8 +33,7 @@ export default function TestPage() {
                     <div
                         style={{
                             display: 'flex',
-                            'flex-direction':
-                                'column',
+                            'flex-direction': 'column',
                             gap: '2rem',
                         }}
                     >
@@ -50,33 +47,25 @@ export default function TestPage() {
                                         'var(--scn-font-size-sm)',
                                 }}
                             >
-                                Basic HoverCard
+                                16:9
                             </p>
 
-                            <HoverCard>
-                                <HoverCardTrigger href="#">
-                                    Hover over this link
-                                </HoverCardTrigger>
-
-                                <HoverCardContent>
-                                    <strong>
-                                        Trader profile
-                                    </strong>
-
-                                    <p
-                                        style={{
-                                            margin:
-                                                '0.5rem 0 0',
-                                        }}
-                                    >
-                                        This is contextual
-                                        information that
-                                        can be displayed
-                                        without leaving the
-                                        current page.
-                                    </p>
-                                </HoverCardContent>
-                            </HoverCard>
+                            <AspectRatio ratio={16 / 9}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        'align-items': 'center',
+                                        'justify-content':
+                                            'center',
+                                        background:
+                                            'var(--scn-muted)',
+                                        color:
+                                            'var(--scn-muted-foreground)',
+                                    }}
+                                >
+                                    16 : 9
+                                </div>
+                            </AspectRatio>
                         </div>
 
                         <div>
@@ -89,43 +78,63 @@ export default function TestPage() {
                                         'var(--scn-font-size-sm)',
                                 }}
                             >
-                                Profile preview
+                                4:3
                             </p>
 
-                            <HoverCard>
-                                <HoverCardTrigger href="/traders/kevin">
-                                    Kevin Ndanyi
-                                </HoverCardTrigger>
+                            <AspectRatio ratio={4 / 3}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        'align-items': 'center',
+                                        'justify-content':
+                                            'center',
+                                        background:
+                                            'var(--scn-muted)',
+                                        color:
+                                            'var(--scn-muted-foreground)',
+                                    }}
+                                >
+                                    4 : 3
+                                </div>
+                            </AspectRatio>
+                        </div>
 
-                                <HoverCardContent>
+                        <div>
+                            <p
+                                style={{
+                                    margin: '0 0 0.5rem',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                    'font-size':
+                                        'var(--scn-font-size-sm)',
+                                }}
+                            >
+                                1:1
+                            </p>
+
+                            <div
+                                style={{
+                                    width: '12rem',
+                                }}
+                            >
+                                <AspectRatio ratio={1}>
                                     <div
                                         style={{
                                             display: 'flex',
-                                            'flex-direction':
-                                                'column',
-                                            gap: '0.5rem',
+                                            'align-items':
+                                                'center',
+                                            'justify-content':
+                                                'center',
+                                            background:
+                                                'var(--scn-muted)',
+                                            color:
+                                                'var(--scn-muted-foreground)',
                                         }}
                                     >
-                                        <strong>
-                                            Kevin Ndanyi
-                                        </strong>
-
-                                        <span
-                                            style={{
-                                                color:
-                                                    'var(--scn-muted-foreground)',
-                                            }}
-                                        >
-                                            Forex trader
-                                        </span>
-
-                                        <span>
-                                            London session
-                                            specialist
-                                        </span>
+                                        1 : 1
                                     </div>
-                                </HoverCardContent>
-                            </HoverCard>
+                                </AspectRatio>
+                            </div>
                         </div>
 
                         <div>
@@ -138,48 +147,28 @@ export default function TestPage() {
                                         'var(--scn-font-size-sm)',
                                 }}
                             >
-                                Custom delay
+                                Custom class
                             </p>
 
-                            <HoverCard
-                                openDelay={500}
-                                closeDelay={300}
+                            <AspectRatio
+                                ratio={21 / 9}
+                                class="custom-ratio"
                             >
-                                <HoverCardTrigger href="#">
-                                    Delayed HoverCard
-                                </HoverCardTrigger>
-
-                                <HoverCardContent>
-                                    This card uses a
-                                    500ms opening delay and
-                                    a 300ms closing delay.
-                                </HoverCardContent>
-                            </HoverCard>
-                        </div>
-
-                        <div>
-                            <p
-                                style={{
-                                    margin: '0 0 0.5rem',
-                                    color:
-                                        'var(--scn-muted-foreground)',
-                                    'font-size':
-                                        'var(--scn-font-size-sm)',
-                                }}
-                            >
-                                Disabled
-                            </p>
-
-                            <HoverCard disabled>
-                                <HoverCardTrigger href="#">
-                                    Disabled HoverCard
-                                </HoverCardTrigger>
-
-                                <HoverCardContent>
-                                    This content should
-                                    never open.
-                                </HoverCardContent>
-                            </HoverCard>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        'align-items': 'center',
+                                        'justify-content':
+                                            'center',
+                                        background:
+                                            'var(--scn-muted)',
+                                        color:
+                                            'var(--scn-muted-foreground)',
+                                    }}
+                                >
+                                    21 : 9
+                                </div>
+                            </AspectRatio>
                         </div>
                     </div>
                 </CardContent>
