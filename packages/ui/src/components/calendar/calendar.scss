@@ -143,3 +143,50 @@
     border-radius: var(--scn-radius-sm);
   }
 }
+
+
+.scn-calendar__day--in-range {
+  background: color-mix(
+    in srgb,
+    var(--scn-primary) 12%,
+    var(--scn-background)
+  );
+
+  border-radius: 0;
+
+  &:hover {
+    background: color-mix(
+      in srgb,
+      var(--scn-primary) 20%,
+      var(--scn-background)
+    );
+  }
+}
+
+.scn-calendar__day--range-start {
+  background: var(--scn-primary);
+  color: var(--scn-primary-foreground);
+  border-radius:
+    var(--scn-radius-md) 0 0
+    var(--scn-radius-md);
+
+  &:hover {
+    background: var(--scn-primary);
+  }
+}
+
+.scn-calendar__day--range-end {
+  background: var(--scn-primary);
+  color: var(--scn-primary-foreground);
+  border-radius:
+    0 var(--scn-radius-md)
+    var(--scn-radius-md) 0;
+
+  &:hover {
+    background: var(--scn-primary);
+  }
+}
+
+.scn-calendar__day--range-start.scn-calendar__day--range-end {
+  border-radius: var(--scn-radius-md);
+}

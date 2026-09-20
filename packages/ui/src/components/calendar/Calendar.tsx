@@ -28,6 +28,9 @@ export interface CalendarProps
   minDate?: Date
   maxDate?: Date
   disabled?: (date: Date) => boolean
+
+  rangeStart?: Date
+  rangeEnd?: Date
 }
 
 type CalendarView =
@@ -78,6 +81,19 @@ const isBefore = (a: Date, b: Date) =>
 const isAfter = (a: Date, b: Date) =>
   startOfDay(a).getTime() >
   startOfDay(b).getTime()
+
+const isBetween = (
+  date: Date,
+  start?: Date,
+  end?: Date,
+) => {
+  if (!start || !end) return false
+
+  return (
+    !isBefore(date, start) &&
+    !isAfter(date, end)
+  )
+}
 
 const formatMonth = (date: Date) =>
   `${MONTHS[date.getMonth()]} ${date.getFullYear()}`
@@ -167,6 +183,8 @@ export const Calendar: Component<
       'minDate',
       'maxDate',
       'disabled',
+      'rangeStart',
+      'rangeEnd',
     ])
 
   const today = startOfDay(
@@ -175,6 +193,7 @@ export const Calendar: Component<
 
   const initialDate =
     local.value ??
+    local.rangeStart ??
     local.defaultValue ??
     today
 
@@ -236,7 +255,6 @@ export const Calendar: Component<
   const currentMonth = () =>
     month().getMonth()
 
-  // Automatically focus active element whenever DOM mounts/re-renders
   createEffect(
     on(
       [
@@ -360,8 +378,7 @@ export const Calendar: Component<
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() -
-          1,
+          current.getFullYear() - 1,
           current.getMonth(),
           1,
         ),
@@ -372,8 +389,7 @@ export const Calendar: Component<
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() +
-          1,
+          current.getFullYear() + 1,
           current.getMonth(),
           1,
         ),
@@ -384,8 +400,7 @@ export const Calendar: Component<
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() -
-          10,
+          current.getFullYear() - 10,
           current.getMonth(),
           1,
         ),
@@ -396,8 +411,7 @@ export const Calendar: Component<
     setMonth(
       (current) =>
         new Date(
-          current.getFullYear() +
-          10,
+          current.getFullYear() + 10,
           current.getMonth(),
           1,
         ),
@@ -461,29 +475,25 @@ export const Calendar: Component<
       switch (event.key) {
         case 'ArrowLeft':
           nextDate.setDate(
-            nextDate.getDate() -
-            1,
+            nextDate.getDate() - 1,
           )
           break
 
         case 'ArrowRight':
           nextDate.setDate(
-            nextDate.getDate() +
-            1,
+            nextDate.getDate() + 1,
           )
           break
 
         case 'ArrowUp':
           nextDate.setDate(
-            nextDate.getDate() -
-            7,
+            nextDate.getDate() - 7,
           )
           break
 
         case 'ArrowDown':
           nextDate.setDate(
-            nextDate.getDate() +
-            7,
+            nextDate.getDate() + 7,
           )
           break
 
@@ -497,22 +507,19 @@ export const Calendar: Component<
         case 'End':
           nextDate.setDate(
             nextDate.getDate() +
-            (6 -
-              nextDate.getDay()),
+            (6 - nextDate.getDay()),
           )
           break
 
         case 'PageUp':
           nextDate.setMonth(
-            nextDate.getMonth() -
-            1,
+            nextDate.getMonth() - 1,
           )
           break
 
         case 'PageDown':
           nextDate.setMonth(
-            nextDate.getMonth() +
-            1,
+            nextDate.getMonth() + 1,
           )
           break
 
@@ -546,9 +553,7 @@ export const Calendar: Component<
       Array.from(
         { length: 12 },
         (_, index) =>
-          decadeStart() -
-          1 +
-          index,
+          decadeStart() - 1 + index,
       ),
     )
 
@@ -714,6 +719,29 @@ export const Calendar: Component<
                   )
                   : false
 
+              const rangeStart =
+                local.rangeStart
+                  ? sameDay(
+                    date,
+                    local.rangeStart,
+                  )
+                  : false
+
+              const rangeEnd =
+                local.rangeEnd
+                  ? sameDay(
+                    date,
+                    local.rangeEnd,
+                  )
+                  : false
+
+              const inRange =
+                isBetween(
+                  date,
+                  local.rangeStart,
+                  local.rangeEnd,
+                )
+
               const isFocused = () =>
                 sameDay(
                   date,
@@ -736,14 +764,16 @@ export const Calendar: Component<
                     if (
                       isFocused()
                     ) {
-                      setActiveRef(
-                        el,
-                      )
+                      setActiveRef(el)
                     }
                   }}
                   role="gridcell"
                   data-timestamp={date.getTime()}
-                  aria-selected={selected()}
+                  aria-selected={
+                    selected() ||
+                    rangeStart ||
+                    rangeEnd
+                  }
                   aria-current={
                     isToday
                       ? 'date'
@@ -764,20 +794,22 @@ export const Calendar: Component<
                     'scn-calendar__day--outside',
                     selected() &&
                     'scn-calendar__day--selected',
+                    rangeStart &&
+                    'scn-calendar__day--range-start',
+                    rangeEnd &&
+                    'scn-calendar__day--range-end',
+                    inRange &&
+                    'scn-calendar__day--in-range',
                     isToday &&
                     'scn-calendar__day--today',
                     disabled &&
                     'scn-calendar__day--disabled',
                   )}
                   onClick={() =>
-                    selectDate(
-                      date,
-                    )
+                    selectDate(date)
                   }
                   onFocus={() =>
-                    setFocusedDate(
-                      date,
-                    )
+                    setFocusedDate(date)
                   }
                   onKeyDown={
                     handleDayKeyDown
@@ -849,12 +881,10 @@ export const Calendar: Component<
                   currentYear() &&
                   'scn-calendar__year-option--selected',
                   year ===
-                  decadeStart() -
-                  1 &&
+                  decadeStart() - 1 &&
                   'scn-calendar__year-option--outside',
                   year ===
-                  decadeStart() +
-                  10 &&
+                  decadeStart() + 10 &&
                   'scn-calendar__year-option--outside',
                 )}
                 onClick={() =>
@@ -872,9 +902,7 @@ export const Calendar: Component<
         <button
           type="button"
           class="scn-calendar__today"
-          onClick={
-            goToToday
-          }
+          onClick={goToToday}
         >
           Today
         </button>

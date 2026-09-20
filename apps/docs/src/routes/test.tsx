@@ -1,82 +1,135 @@
+import { createSignal } from 'solid-js'
+
 import {
-    Command,
-    CommandInput,
-    CommandList,
-    CommandEmpty,
-    CommandGroup,
-    CommandItem,
+    Button,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+    Combobox,
+    type ComboboxOption,
 } from '@solidcn/ui'
 
-export default function Test() {
+const currencyPairs: ComboboxOption[] = [
+    {
+        value: 'eurusd',
+        label: 'EUR/USD',
+    },
+    {
+        value: 'gbpusd',
+        label: 'GBP/USD',
+    },
+    {
+        value: 'usdjpy',
+        label: 'USD/JPY',
+    },
+    {
+        value: 'usdchf',
+        label: 'USD/CHF',
+    },
+    {
+        value: 'audusd',
+        label: 'AUD/USD',
+    },
+    {
+        value: 'usdcad',
+        label: 'USD/CAD',
+    },
+    {
+        value: 'nzdusd',
+        label: 'NZD/USD',
+    },
+    {
+        value: 'xauusd',
+        label: 'XAU/USD',
+    },
+    {
+        value: 'us30',
+        label: 'US30',
+        disabled: true,
+    },
+]
+
+export default function TestPage() {
+    const [
+        symbol,
+        setSymbol,
+    ] = createSignal<
+        string | undefined
+    >('eurusd')
+
     return (
         <main
             style={{
                 padding: '2rem',
-                'max-width': '42rem',
+                'max-width': '48rem',
                 margin: '0 auto',
             }}
         >
-            <h1>Command</h1>
+            <Card>
+                <CardHeader>
+                    <CardTitle>
+                        Combobox
+                    </CardTitle>
 
-            <p
-                style={{
-                    color:
-                        'var(--scn-muted-foreground)',
-                    'margin-bottom': '2rem',
-                }}
-            >
-                Test the command input, search
-                filtering, keyboard navigation, and
-                the Lucide search icon.
-            </p>
+                    <CardDescription>
+                        Search and select a trading
+                        symbol.
+                    </CardDescription>
+                </CardHeader>
 
-            <Command>
-                <CommandInput
-                    placeholder="Search commands..."
-                />
+                <CardContent>
+                    <Combobox
+                        options={
+                            currencyPairs
+                        }
+                        value={symbol()}
+                        onChange={setSymbol}
+                        placeholder="Select a symbol"
+                        searchPlaceholder="Search symbols..."
+                        clearable
+                    />
 
-                <CommandList>
-                    <CommandEmpty>
-                        No commands found.
-                    </CommandEmpty>
+                    <div
+                        style={{
+                            'margin-top': '1.5rem',
+                        }}
+                    >
+                        <strong>
+                            Selected:
+                        </strong>
 
-                    <CommandGroup heading="Navigation">
-                        <CommandItem value="dashboard">
-                            Dashboard
-                        </CommandItem>
+                        <pre
+                            style={{
+                                'margin-top': '0.5rem',
+                                padding: '1rem',
+                                'border-radius': '0.5rem',
+                                background:
+                                    'var(--scn-muted)',
+                                color:
+                                    'var(--scn-foreground)',
+                                'font-size': '0.875rem',
+                            }}
+                        >
+                            {symbol() ??
+                                'undefined'}
+                        </pre>
+                    </div>
+                </CardContent>
 
-                        <CommandItem value="trading accounts">
-                            Trading Accounts
-                        </CommandItem>
-
-                        <CommandItem value="trade journal">
-                            Trade Journal
-                        </CommandItem>
-
-                        <CommandItem value="analytics">
-                            Analytics
-                        </CommandItem>
-                    </CommandGroup>
-
-                    <CommandGroup heading="Actions">
-                        <CommandItem value="new trade">
-                            New Trade
-                        </CommandItem>
-
-                        <CommandItem value="deposit">
-                            Deposit
-                        </CommandItem>
-
-                        <CommandItem value="withdraw">
-                            Withdraw
-                        </CommandItem>
-
-                        <CommandItem value="settings">
-                            Settings
-                        </CommandItem>
-                    </CommandGroup>
-                </CommandList>
-            </Command>
+                <CardFooter>
+                    <Button
+                        variant="secondary"
+                        onClick={() =>
+                            setSymbol(undefined)
+                        }
+                    >
+                        Clear
+                    </Button>
+                </CardFooter>
+            </Card>
         </main>
     )
 }

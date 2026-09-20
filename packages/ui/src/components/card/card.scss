@@ -11,3 +11,36 @@
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
 }
 
+.scn-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scn-space-1);
+}
+
+.scn-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scn-space-3);
+}
+
+.scn-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--scn-space-2);
+}
+
+.scn-card__title {
+  margin: 0;
+  color: var(--scn-foreground);
+  font-size: var(--scn-font-size-lg);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.scn-card__description {
+  margin: 0;
+  color: var(--scn-muted-foreground);
+  font-size: var(--scn-font-size-sm);
+  line-height: 1.5;
+}
+
