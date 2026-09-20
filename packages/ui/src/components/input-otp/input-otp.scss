@@ -1,0 +1,128 @@
+.scn-input-otp {
+  position: relative;
+  width: fit-content;
+}
+
+.scn-input-otp__slots {
+  display: flex;
+  align-items: center;
+  gap: var(--scn-space-2);
+}
+
+.scn-input-otp__slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 3rem;
+  background: var(--scn-background);
+  color: var(--scn-foreground);
+  border: 1px solid var(--scn-input);
+  border-radius: var(--scn-radius-md);
+  font-family: var(--scn-font-sans);
+  font-size: var(--scn-text-lg);
+  font-weight: var(--scn-weight-medium);
+  line-height: 1;
+  transition:
+    border-color var(--scn-duration-fast) var(--scn-ease-standard),
+    box-shadow var(--scn-duration-fast) var(--scn-ease-standard);
+}
+
+.scn-input-otp__slot--filled {
+  border-color: var(--scn-primary);
+}
+
+.scn-input-otp__caret {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 1.25rem;
+  background-color: var(--scn-primary);
+  animation: scn-input-otp-blink 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes scn-input-otp-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.scn-input-otp__input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+  border: 0;
+  outline: 0;
+  caret-color: transparent;
+  font-size: 1rem;
+  letter-spacing: 0;
+  cursor: text;
+}
+
+.scn-input-otp__input::selection {
+  background: color-mix(
+    in srgb,
+    var(--scn-primary) 20%,
+    transparent
+  );
+}
+
+.scn-input-otp__input:focus-visible + * {
+  outline: none;
+}
+
+.scn-input-otp:focus-within .scn-input-otp__slot {
+  border-color: var(--scn-ring);
+}
+
+.scn-input-otp:focus-within .scn-input-otp__slot--active {
+  border-color: var(--scn-primary);
+  box-shadow:
+    0 0 0 2px
+    color-mix(
+      in srgb,
+      var(--scn-ring) 20%,
+      transparent
+    );
+}
+
+.scn-input-otp--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.scn-input-otp--disabled .scn-input-otp__input {
+  cursor: not-allowed;
+}
+
+@media (max-width: 30rem) {
+  .scn-input-otp__slots {
+    gap: var(--scn-space-1);
+  }
+
+  .scn-input-otp__slot {
+    width: 2.5rem;
+    height: 2.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scn-input-otp__slot {
+    transition: none;
+  }
+  .scn-input-otp__caret {
+    animation: none;
+  }
+}
