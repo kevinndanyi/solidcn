@@ -1,15 +1,13 @@
 import type { Component, JSX } from 'solid-js'
 import {
+  createEffect,
   createSignal,
-  Show,
+  on,
   splitProps,
 } from 'solid-js'
 import { cx } from '@solidcn/cx'
 
-import {
-  Calendar,
-} from '../calendar'
-
+import { Calendar } from '../calendar'
 import {
   Popover,
   PopoverContent,
@@ -49,11 +47,12 @@ export const DatePicker: Component<
   ])
 
   const [internalValue, setInternalValue] =
-    createSignal<Date | undefined>(
-      local.defaultValue,
-    )
+    createSignal<Date | undefined>(local.defaultValue)
 
   const [open, setOpen] = createSignal(false)
+
+  let triggerRef: HTMLButtonElement | undefined
+  let contentRef: HTMLDivElement | undefined
 
   const selectedDate = () =>
     local.value !== undefined
@@ -64,7 +63,31 @@ export const DatePicker: Component<
     setInternalValue(date)
     local.onChange?.(date)
     setOpen(false)
+
+    // Return focus to trigger after selection
+    queueMicrotask(() => {
+      triggerRef?.focus()
+    })
   }
+
+  // Move focus into calendar grid automatically when popover opens
+  createEffect(
+    on(
+      open,
+      (isOpen) => {
+        if (isOpen && contentRef) {
+          queueMicrotask(() => {
+            const activeDay =
+              contentRef?.querySelector<HTMLButtonElement>(
+                '[tabindex="0"]',
+              )
+            activeDay?.focus()
+          })
+        }
+      },
+      { defer: true },
+    ),
+  )
 
   const formatDate = (date: Date) =>
     new Intl.DateTimeFormat('en', {
@@ -86,6 +109,7 @@ export const DatePicker: Component<
         onOpenChange={setOpen}
       >
         <PopoverTrigger
+          ref={(el) => (triggerRef = el)}
           class={cx(
             'scn-date-picker__trigger',
             !selectedDate() &&
@@ -102,12 +126,13 @@ export const DatePicker: Component<
           <span>
             {selectedDate()
               ? formatDate(selectedDate()!)
-              : local.placeholder ??
-              'Select a date'}
+              : (local.placeholder ??
+                'Select a date')}
           </span>
         </PopoverTrigger>
 
         <PopoverContent
+          ref={(el) => (contentRef = el)}
           class="scn-date-picker__content"
         >
           <Calendar
