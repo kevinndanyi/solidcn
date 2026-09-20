@@ -1,24 +1,15 @@
-import { createSignal } from 'solid-js'
-
 import {
-    Button,
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
 } from '@solidcn/ui'
 
 export default function TestPage() {
-    const [
-        controlledOpen,
-        setControlledOpen,
-    ] = createSignal(false)
-
     return (
         <main
             style={{
@@ -30,13 +21,13 @@ export default function TestPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        Collapsible
+                        HoverCard
                     </CardTitle>
 
                     <CardDescription>
-                        Expandable content with
-                        controlled and
-                        uncontrolled state.
+                        Contextual information
+                        revealed on hover or
+                        keyboard focus.
                     </CardDescription>
                 </CardHeader>
 
@@ -46,72 +37,152 @@ export default function TestPage() {
                             display: 'flex',
                             'flex-direction':
                                 'column',
-                            gap: '1.5rem',
+                            gap: '2rem',
                         }}
                     >
-                        <Collapsible
-                            defaultOpen
-                        >
-                            <CollapsibleTrigger>
-                                Advanced settings
-                            </CollapsibleTrigger>
+                        <div>
+                            <p
+                                style={{
+                                    margin: '0 0 0.5rem',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                    'font-size':
+                                        'var(--scn-font-size-sm)',
+                                }}
+                            >
+                                Basic HoverCard
+                            </p>
 
-                            <CollapsibleContent>
-                                These settings are
-                                visible when the
-                                section is expanded.
-                            </CollapsibleContent>
-                        </Collapsible>
+                            <HoverCard>
+                                <HoverCardTrigger href="#">
+                                    Hover over this link
+                                </HoverCardTrigger>
 
-                        <Collapsible
-                            open={
-                                controlledOpen()
-                            }
-                            onOpenChange={
-                                setControlledOpen
-                            }
-                        >
-                            <CollapsibleTrigger>
-                                Controlled section
-                            </CollapsibleTrigger>
+                                <HoverCardContent>
+                                    <strong>
+                                        Trader profile
+                                    </strong>
 
-                            <CollapsibleContent>
-                                This section is
-                                controlled by the
-                                parent component.
-                            </CollapsibleContent>
-                        </Collapsible>
+                                    <p
+                                        style={{
+                                            margin:
+                                                '0.5rem 0 0',
+                                        }}
+                                    >
+                                        This is contextual
+                                        information that
+                                        can be displayed
+                                        without leaving the
+                                        current page.
+                                    </p>
+                                </HoverCardContent>
+                            </HoverCard>
+                        </div>
 
-                        <Collapsible
-                            disabled
-                        >
-                            <CollapsibleTrigger>
-                                Disabled section
-                            </CollapsibleTrigger>
+                        <div>
+                            <p
+                                style={{
+                                    margin: '0 0 0.5rem',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                    'font-size':
+                                        'var(--scn-font-size-sm)',
+                                }}
+                            >
+                                Profile preview
+                            </p>
 
-                            <CollapsibleContent>
-                                You should not be
-                                able to open this
-                                section.
-                            </CollapsibleContent>
-                        </Collapsible>
+                            <HoverCard>
+                                <HoverCardTrigger href="/traders/kevin">
+                                    Kevin Ndanyi
+                                </HoverCardTrigger>
+
+                                <HoverCardContent>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            'flex-direction':
+                                                'column',
+                                            gap: '0.5rem',
+                                        }}
+                                    >
+                                        <strong>
+                                            Kevin Ndanyi
+                                        </strong>
+
+                                        <span
+                                            style={{
+                                                color:
+                                                    'var(--scn-muted-foreground)',
+                                            }}
+                                        >
+                                            Forex trader
+                                        </span>
+
+                                        <span>
+                                            London session
+                                            specialist
+                                        </span>
+                                    </div>
+                                </HoverCardContent>
+                            </HoverCard>
+                        </div>
+
+                        <div>
+                            <p
+                                style={{
+                                    margin: '0 0 0.5rem',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                    'font-size':
+                                        'var(--scn-font-size-sm)',
+                                }}
+                            >
+                                Custom delay
+                            </p>
+
+                            <HoverCard
+                                openDelay={500}
+                                closeDelay={300}
+                            >
+                                <HoverCardTrigger href="#">
+                                    Delayed HoverCard
+                                </HoverCardTrigger>
+
+                                <HoverCardContent>
+                                    This card uses a
+                                    500ms opening delay and
+                                    a 300ms closing delay.
+                                </HoverCardContent>
+                            </HoverCard>
+                        </div>
+
+                        <div>
+                            <p
+                                style={{
+                                    margin: '0 0 0.5rem',
+                                    color:
+                                        'var(--scn-muted-foreground)',
+                                    'font-size':
+                                        'var(--scn-font-size-sm)',
+                                }}
+                            >
+                                Disabled
+                            </p>
+
+                            <HoverCard disabled>
+                                <HoverCardTrigger href="#">
+                                    Disabled HoverCard
+                                </HoverCardTrigger>
+
+                                <HoverCardContent>
+                                    This content should
+                                    never open.
+                                </HoverCardContent>
+                            </HoverCard>
+                        </div>
                     </div>
                 </CardContent>
-
-                <CardFooter>
-                    <Button
-                        variant="secondary"
-                        onClick={() =>
-                            setControlledOpen(
-                                !controlledOpen(),
-                            )
-                        }
-                    >
-                        {controlledOpen()
-                            ? 'Close controlled'
-                            : 'Open controlled'}
-                    </Button>
-                </CardFooter>
             </Card>
         </main>
     )
