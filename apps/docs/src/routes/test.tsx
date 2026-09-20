@@ -9,56 +9,45 @@ import {
     CardHeader,
     CardTitle,
     Combobox,
-    type ComboboxOption,
+    Field,
+    FieldDescription,
+    FieldError,
+    Input,
+    Label,
+    Textarea,
 } from '@solidcn/ui'
 
-const currencyPairs: ComboboxOption[] = [
+const countries = [
     {
-        value: 'eurusd',
-        label: 'EUR/USD',
+        value: 'kenya',
+        label: 'Kenya',
     },
     {
-        value: 'gbpusd',
-        label: 'GBP/USD',
+        value: 'uganda',
+        label: 'Uganda',
     },
     {
-        value: 'usdjpy',
-        label: 'USD/JPY',
+        value: 'tanzania',
+        label: 'Tanzania',
     },
     {
-        value: 'usdchf',
-        label: 'USD/CHF',
-    },
-    {
-        value: 'audusd',
-        label: 'AUD/USD',
-    },
-    {
-        value: 'usdcad',
-        label: 'USD/CAD',
-    },
-    {
-        value: 'nzdusd',
-        label: 'NZD/USD',
-    },
-    {
-        value: 'xauusd',
-        label: 'XAU/USD',
-    },
-    {
-        value: 'us30',
-        label: 'US30',
-        disabled: true,
+        value: 'rwanda',
+        label: 'Rwanda',
     },
 ]
 
 export default function TestPage() {
     const [
-        symbol,
-        setSymbol,
+        email,
+        setEmail,
+    ] = createSignal('')
+
+    const [
+        country,
+        setCountry,
     ] = createSignal<
         string | undefined
-    >('eurusd')
+    >()
 
     return (
         <main
@@ -71,62 +60,126 @@ export default function TestPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        Combobox
+                        Field Components
                     </CardTitle>
 
                     <CardDescription>
-                        Search and select a trading
-                        symbol.
+                        Composable form field
+                        primitives.
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent>
-                    <Combobox
-                        options={
-                            currencyPairs
-                        }
-                        value={symbol()}
-                        onChange={setSymbol}
-                        placeholder="Select a symbol"
-                        searchPlaceholder="Search symbols..."
-                        clearable
-                    />
+                    <Field>
+                        <Label for="email">
+                            Email address
+                        </Label>
+
+                        <Input
+                            id="email"
+                            type="email"
+                            value={email()}
+                            placeholder="you@example.com"
+                            onInput={(event) =>
+                                setEmail(
+                                    event.currentTarget
+                                        .value,
+                                )
+                            }
+                        />
+
+                        <FieldDescription>
+                            We'll never share your
+                            email address.
+                        </FieldDescription>
+
+                        <FieldError>
+                            {email() &&
+                                !email().includes('@')
+                                ? 'Please enter a valid email address.'
+                                : undefined}
+                        </FieldError>
+                    </Field>
 
                     <div
                         style={{
-                            'margin-top': '1.5rem',
+                            height: '1.5rem',
                         }}
-                    >
-                        <strong>
-                            Selected:
-                        </strong>
+                    />
 
-                        <pre
-                            style={{
-                                'margin-top': '0.5rem',
-                                padding: '1rem',
-                                'border-radius': '0.5rem',
-                                background:
-                                    'var(--scn-muted)',
-                                color:
-                                    'var(--scn-foreground)',
-                                'font-size': '0.875rem',
-                            }}
-                        >
-                            {symbol() ??
-                                'undefined'}
-                        </pre>
-                    </div>
+                    <Field>
+                        <Label for="country">
+                            Country
+                        </Label>
+
+                        <Combobox
+                            options={countries}
+                            value={country()}
+                            onChange={setCountry}
+                            placeholder="Select your country"
+                            searchPlaceholder="Search countries..."
+                            clearable
+                        />
+
+                        <FieldDescription>
+                            Select your country of
+                            residence.
+                        </FieldDescription>
+                    </Field>
+
+                    <div
+                        style={{
+                            height: '1.5rem',
+                        }}
+                    />
+
+                    <Field>
+                        <Label for="bio">
+                            About you
+                        </Label>
+
+                        <Textarea
+                            id="bio"
+                            placeholder="Tell us something about yourself..."
+                        />
+
+                        <FieldDescription>
+                            Keep it short and
+                            informative.
+                        </FieldDescription>
+                    </Field>
+
+                    <div
+                        style={{
+                            height: '1.5rem',
+                        }}
+                    />
+
+                    <Field>
+                        <Label for="error-demo">
+                            Validation example
+                        </Label>
+
+                        <Input
+                            id="error-demo"
+                            aria-invalid="true"
+                            value="invalid value"
+                        />
+
+                        <FieldError>
+                            This field contains
+                            an invalid value.
+                        </FieldError>
+                    </Field>
                 </CardContent>
 
                 <CardFooter>
-                    <Button
-                        variant="secondary"
-                        onClick={() =>
-                            setSymbol(undefined)
-                        }
-                    >
-                        Clear
+                    <Button>
+                        Submit
+                    </Button>
+
+                    <Button variant="secondary">
+                        Cancel
                     </Button>
                 </CardFooter>
             </Card>

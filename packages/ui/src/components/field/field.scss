@@ -1,0 +1,27 @@
+.scn-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scn-space-2);
+  width: 100%;
+}
+
+.scn-field__description {
+  margin: 0;
+  color: var(--scn-muted-foreground);
+  font-size: var(--scn-font-size-sm);
+  line-height: 1.5;
+}
+
+.scn-field__error {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scn-space-1);
+  margin: 0;
+  color: var(--scn-destructive);
+  font-size: var(--scn-font-size-sm);
+  line-height: 1.5;
+}
+
+.scn-field__error-message {
+  display: block;
+}
