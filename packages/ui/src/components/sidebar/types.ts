@@ -1,25 +1,29 @@
 import type { JSX } from 'solid-js'
 
-export interface SidebarContextValue {
-    collapsed: () => boolean
-    toggle: () => void
-    setCollapsed: (value: boolean) => void
-}
-
 export interface SidebarProviderProps {
     children?: JSX.Element
+
     collapsed?: boolean
     defaultCollapsed?: boolean
-    onCollapsedChange?: (collapsed: boolean) => void
+    onCollapsedChange?: (
+        collapsed: boolean,
+    ) => void
+
+    mobileOpen?: boolean
+    defaultMobileOpen?: boolean
+    onMobileOpenChange?: (
+        open: boolean,
+    ) => void
+
+    mobileBreakpoint?: number
+
     collapsible?: boolean
 }
 
-export interface SidebarProps extends JSX.HTMLAttributes<HTMLElement> {
+export interface SidebarProps
+    extends SidebarProviderProps,
+    JSX.HTMLAttributes<HTMLElement> {
     class?: string
-    collapsed?: boolean
-    defaultCollapsed?: boolean
-    onCollapsedChange?: (collapsed: boolean) => void
-    collapsible?: boolean
 }
 
 export interface SidebarTriggerProps
@@ -27,19 +31,23 @@ export interface SidebarTriggerProps
     class?: string
 }
 
-export interface SidebarHeaderProps extends JSX.HTMLAttributes<HTMLDivElement> {
+export interface SidebarHeaderProps
+    extends JSX.HTMLAttributes<HTMLDivElement> {
     class?: string
 }
 
-export interface SidebarContentProps extends JSX.HTMLAttributes<HTMLDivElement> {
+export interface SidebarContentProps
+    extends JSX.HTMLAttributes<HTMLDivElement> {
     class?: string
 }
 
-export interface SidebarFooterProps extends JSX.HTMLAttributes<HTMLDivElement> {
+export interface SidebarFooterProps
+    extends JSX.HTMLAttributes<HTMLDivElement> {
     class?: string
 }
 
-export interface SidebarGroupProps extends JSX.HTMLAttributes<HTMLDivElement> {
+export interface SidebarGroupProps
+    extends JSX.HTMLAttributes<HTMLDivElement> {
     class?: string
 }
 
@@ -50,6 +58,11 @@ export interface SidebarGroupLabelProps
 
 export interface SidebarGroupContentProps
     extends JSX.HTMLAttributes<HTMLDivElement> {
+    class?: string
+}
+
+export interface SidebarSeparatorProps
+    extends JSX.HTMLAttributes<HTMLHRElement> {
     class?: string
 }
 
@@ -70,7 +83,12 @@ export interface SidebarMenuButtonProps
     tooltip?: string
 }
 
-export interface SidebarSeparatorProps
-    extends JSX.HTMLAttributes<HTMLHRElement> {
+export interface SidebarMenuCollapsibleProps
+    extends JSX.HTMLAttributes<HTMLDivElement> {
     class?: string
+    open?: boolean
+    defaultOpen?: boolean
+    onOpenChange?: (
+        open: boolean,
+    ) => void
 }

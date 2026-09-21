@@ -1,33 +1,43 @@
 export {
   Sidebar,
+} from './sidebar-root'
+
+export {
+  SidebarProvider,
+} from './sidebar-provider'
+
+export {
   SidebarTrigger,
+} from './sidebar-trigger'
+
+export {
   SidebarHeader,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
+  SidebarSeparator,
+} from './sidebar-sections'
+
+export {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarSeparator,
+  SidebarMenuCollapsible,
+} from './sidebar-menu'
+
+export {
   useSidebar,
-  SidebarProvider,
-} from './Sidebar'
+} from './context'
 
-import './sidebar.scss'
-
-export * from './types'
-export * from './context'
-export * from './SidebarProvider'
-export * from './SidebarRoot'
-export * from './SidebarTrigger'
-export * from './SidebarSections'
-export * from './SidebarMenu'
+export type {
+  SidebarContextValue,
+} from './context'
 
 export type {
   SidebarProps,
-  SidebarContextValue,
+  SidebarProviderProps,
   SidebarTriggerProps,
   SidebarHeaderProps,
   SidebarContentProps,
@@ -35,8 +45,9 @@ export type {
   SidebarGroupProps,
   SidebarGroupLabelProps,
   SidebarGroupContentProps,
+  SidebarSeparatorProps,
   SidebarMenuProps,
   SidebarMenuItemProps,
   SidebarMenuButtonProps,
-  SidebarSeparatorProps,
-} from './Sidebar'
+  SidebarMenuCollapsibleProps,
+} from './types'

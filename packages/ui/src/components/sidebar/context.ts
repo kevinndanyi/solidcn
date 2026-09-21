@@ -1,16 +1,42 @@
-import { createContext, useContext } from 'solid-js'
-import type { SidebarContextValue } from './types'
+import {
+    createContext,
+    useContext,
+} from 'solid-js'
 
-export const SidebarContext = createContext<SidebarContextValue>()
+export interface SidebarContextValue {
+    collapsed: () => boolean
+    mobile: () => boolean
+    mobileOpen: () => boolean
 
-export function useSidebar(): SidebarContextValue {
-    const context = useContext(SidebarContext)
+    toggle: () => void
+    setCollapsed: (
+        collapsed: boolean,
+    ) => void
+
+    openMobile: () => void
+    closeMobile: () => void
+    toggleMobile: () => void
+}
+
+export const SidebarContext =
+    createContext<
+        SidebarContextValue | undefined
+    >()
+
+export function useSidebar() {
+    const context = useContext(
+        SidebarContext,
+    )
 
     if (!context) {
         throw new Error(
-            'Sidebar components must be used inside <SidebarProvider> or <Sidebar>.',
+            'useSidebar must be used inside <SidebarProvider> or <Sidebar>.',
         )
     }
 
     return context
+}
+
+export function useSidebarContext() {
+    return useContext(SidebarContext)
 }

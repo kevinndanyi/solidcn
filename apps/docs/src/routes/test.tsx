@@ -1,193 +1,252 @@
+import type { Component } from 'solid-js'
+import { Show } from 'solid-js'
+
 import {
     Button,
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarProvider,
+    SidebarSeparator,
+    SidebarTrigger,
+    useSidebar,
 } from '@solidcn/ui'
+
+import {
+    ChartNoAxesColumn,
+    House,
+    Settings,
+    Users,
+} from 'lucide-solid'
+
+const SidebarHeaderBrand: Component = () => {
+    const sidebar = useSidebar()
+
+    return (
+        <div
+            style={{
+                display: 'flex',
+                'align-items': 'center',
+                'justify-content': 'space-between',
+                width: '100%',
+                gap: '0.5rem',
+            }}
+        >
+            <Show when={!sidebar.collapsed()}>
+                <strong style={{ 'white-space': 'nowrap' }}>
+                    SolidCN
+                </strong>
+            </Show>
+
+            <SidebarTrigger
+                style={{
+                    'margin-left': sidebar.collapsed() ? 'auto' : '0',
+                }}
+            >
+                {sidebar.collapsed() ? '→' : '←'}
+            </SidebarTrigger>
+        </div>
+    )
+}
+
+const MainContentArea: Component = () => {
+    const sidebar = useSidebar()
+
+    return (
+        <section
+            style={{
+                flex: '1',
+                'min-width': '0', // Prevents flex child from overflowing when sidebar toggles
+                padding: '2rem',
+                overflow: 'auto',
+            }}
+        >
+            <div
+                style={{
+                    display: 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'space-between',
+                    gap: '1rem',
+                }}
+            >
+                <div>
+                    <h2
+                        style={{
+                            margin: '0',
+                            'font-size': 'var(--scn-text-xl)',
+                        }}
+                    >
+                        Sidebar
+                    </h2>
+
+                    <p
+                        style={{
+                            margin: '0.5rem 0 0',
+                            color: 'var(--scn-muted-foreground)',
+                        }}
+                    >
+                        Sidebar component test page.
+                    </p>
+                </div>
+
+                <Button onClick={() => sidebar.toggle()}>
+                    Toggle Sidebar
+                </Button>
+            </div>
+
+            <div
+                style={{
+                    margin: '2rem 0 0',
+                    padding: '1.5rem',
+                    background: 'var(--scn-muted)',
+                    border: '1px solid var(--scn-border)',
+                    'border-radius': 'var(--scn-radius-md)',
+                }}
+            >
+                <strong>Keyboard shortcut</strong>
+
+                <p
+                    style={{
+                        margin: '0.5rem 0 0',
+                        color: 'var(--scn-muted-foreground)',
+                    }}
+                >
+                    Press Ctrl+B on Windows/Linux or Cmd+B on macOS to toggle the sidebar.
+                </p>
+            </div>
+
+            <div
+                style={{
+                    margin: '1rem 0 0',
+                    padding: '1.5rem',
+                    background: 'var(--scn-muted)',
+                    border: '1px solid var(--scn-border)',
+                    'border-radius': 'var(--scn-radius-md)',
+                }}
+            >
+                <strong>Current state</strong>
+
+                <p
+                    style={{
+                        margin: '0.5rem 0 0',
+                        color: 'var(--scn-muted-foreground)',
+                    }}
+                >
+                    {sidebar.mobile()
+                        ? 'Mobile'
+                        : sidebar.collapsed()
+                            ? 'Collapsed'
+                            : 'Expanded'}
+                </p>
+            </div>
+        </section>
+    )
+}
+
+function SidebarDemo() {
+    return (
+        <SidebarProvider>
+            <div
+                style={{
+                    display: 'flex',
+                    height: '36rem',
+                    width: '100%',
+                    overflow: 'hidden',
+                    border: '1px solid var(--scn-border)',
+                    'border-radius': 'var(--scn-radius-lg)',
+                    background: 'var(--scn-background)',
+                }}
+            >
+                <Sidebar>
+                    <SidebarHeader>
+                        <SidebarHeaderBrand />
+                    </SidebarHeader>
+
+                    <SidebarSeparator />
+
+                    <SidebarContent>
+                        <SidebarGroup>
+                            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" active tooltip="Dashboard">
+                                            <House size={18} aria-hidden="true" />
+                                            <span>Dashboard</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Analytics">
+                                            <ChartNoAxesColumn size={18} aria-hidden="true" />
+                                            <span>Analytics</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Users">
+                                            <Users size={18} aria-hidden="true" />
+                                            <span>Users</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                        </SidebarGroup>
+
+                        <SidebarGroup>
+                            <SidebarGroupLabel>Management</SidebarGroupLabel>
+
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Settings">
+                                            <Settings size={18} aria-hidden="true" />
+                                            <span>Settings</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                        </SidebarGroup>
+                    </SidebarContent>
+
+                    <SidebarFooter>
+                        <SidebarSeparator />
+
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton href="#" tooltip="Profile">
+                                    <Users size={18} aria-hidden="true" />
+                                    <span>Kevin</span>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarFooter>
+                </Sidebar>
+
+                <MainContentArea />
+            </div>
+        </SidebarProvider>
+    )
+}
 
 export default function TestPage() {
     return (
         <main
             style={{
                 padding: '2rem',
-                'max-width': '56rem',
+                'max-width': '72rem',
                 margin: '0 auto',
             }}
         >
-            <Card>
-                <CardHeader>
-                    <CardTitle>
-                        Sheet
-                    </CardTitle>
-                </CardHeader>
-
-                <CardContent
-                    style={{
-                        display: 'flex',
-                        'flex-direction': 'column',
-                        gap: '1rem',
-                    }}
-                >
-                    <Sheet>
-                        <SheetTrigger>
-                            Open right sheet
-                        </SheetTrigger>
-
-                        <SheetContent side="right">
-                            <SheetHeader>
-                                <SheetTitle>
-                                    Edit profile
-                                </SheetTitle>
-
-                                <SheetDescription>
-                                    Update your profile
-                                    information and save your
-                                    changes.
-                                </SheetDescription>
-                            </SheetHeader>
-
-                            <div
-                                style={{
-                                    padding: '1.5rem',
-                                    'flex-grow': '1',
-                                }}
-                            >
-                                <p>
-                                    Sheet content goes here.
-                                </p>
-
-                                <p
-                                    style={{
-                                        color:
-                                            'var(--scn-muted-foreground)',
-                                        'font-size':
-                                            'var(--scn-text-sm)',
-                                        'margin-top': '0.5rem',
-                                    }}
-                                >
-                                    This area can contain forms,
-                                    navigation, settings, or
-                                    other application content.
-                                </p>
-                            </div>
-
-                            <SheetFooter>
-                                <SheetClose>
-                                    Cancel
-                                </SheetClose>
-
-                                <Button>
-                                    Save changes
-                                </Button>
-                            </SheetFooter>
-                        </SheetContent>
-                    </Sheet>
-
-                    <Sheet>
-                        <SheetTrigger>
-                            Open left sheet
-                        </SheetTrigger>
-
-                        <SheetContent side="left">
-                            <SheetHeader>
-                                <SheetTitle>
-                                    Navigation
-                                </SheetTitle>
-
-                                <SheetDescription>
-                                    Application navigation
-                                    example.
-                                </SheetDescription>
-                            </SheetHeader>
-
-                            <div
-                                style={{
-                                    padding: '1.5rem',
-                                }}
-                            >
-                                <p>Dashboard</p>
-                                <p>Analytics</p>
-                                <p>Transactions</p>
-                                <p>Settings</p>
-                            </div>
-                        </SheetContent>
-                    </Sheet>
-
-                    <Sheet>
-                        <SheetTrigger>
-                            Open top sheet
-                        </SheetTrigger>
-
-                        <SheetContent side="top">
-                            <SheetHeader>
-                                <SheetTitle>
-                                    Top sheet
-                                </SheetTitle>
-
-                                <SheetDescription>
-                                    Sheets can slide from any
-                                    edge of the viewport.
-                                </SheetDescription>
-                            </SheetHeader>
-                        </SheetContent>
-                    </Sheet>
-
-                    <Sheet>
-                        <SheetTrigger>
-                            Open bottom sheet
-                        </SheetTrigger>
-
-                        <SheetContent side="bottom">
-                            <SheetHeader>
-                                <SheetTitle>
-                                    Bottom sheet
-                                </SheetTitle>
-
-                                <SheetDescription>
-                                    Useful for mobile-oriented
-                                    actions and controls.
-                                </SheetDescription>
-                            </SheetHeader>
-
-                            <SheetFooter>
-                                <SheetClose>
-                                    Close
-                                </SheetClose>
-                            </SheetFooter>
-                        </SheetContent>
-                    </Sheet>
-
-                    <Sheet defaultOpen>
-                        <SheetContent side="right">
-                            <SheetHeader>
-                                <SheetTitle>
-                                    Default open
-                                </SheetTitle>
-
-                                <SheetDescription>
-                                    This sheet starts open using
-                                    defaultOpen.
-                                </SheetDescription>
-                            </SheetHeader>
-
-                            <SheetFooter>
-                                <SheetClose>
-                                    Close
-                                </SheetClose>
-                            </SheetFooter>
-                        </SheetContent>
-                    </Sheet>
-                </CardContent>
-            </Card>
+            <SidebarDemo />
         </main>
     )
 }
