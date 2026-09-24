@@ -1,227 +1,146 @@
-// import { createSignal, For } from 'solid-js'
+import { createSignal } from 'solid-js'
 
-// import {
-//     Button,
-//     Drawer,
-//     DrawerClose,
-//     DrawerContent,
-//     DrawerDescription,
-//     DrawerFooter,
-//     DrawerHeader,
-//     DrawerTitle,
-//     DrawerTrigger,
-// } from '@solidcn/ui'
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuSeparator,
+    ContextMenuTrigger,
+} from '@solidcn/ui'
 
-// export default function DrawerTestPage() {
-//     const [controlledOpen, setControlledOpen] = createSignal(false)
+export default function ContextMenuTestPage() {
+    const [selected, setSelected] =
+        createSignal('Nothing selected')
 
-//     const positions = ['left', 'right', 'top', 'bottom'] as const
+    return (
+        <div
+            style={{
+                padding: '2rem',
+                'max-width': '800px',
+                margin: '0 auto',
+            }}
+        >
+            <div
+                style={{
+                    display: 'flex',
+                    'flex-direction': 'column',
+                    gap: '2rem',
+                }}
+            >
+                <header>
+                    <h1>Context Menu</h1>
 
-//     return (
-//         <div
-//             style={{
-//                 padding: '2rem',
-//                 'max-width': '900px',
-//                 margin: '0 auto',
-//             }}
-//         >
-//             <div
-//                 style={{
-//                     display: 'flex',
-//                     'flex-direction': 'column',
-//                     gap: '2rem',
-//                 }}
-//             >
-//                 <div>
-//                     <h1>Drawer</h1>
+                    <p
+                        style={{
+                            color:
+                                'var(--scn-muted-foreground)',
+                        }}
+                    >
+                        Right-click the area below to
+                        open the context menu.
+                    </p>
+                </header>
 
-//                     <p
-//                         style={{
-//                             color: 'var(--scn-muted-foreground)',
-//                         }}
-//                     >
-//                         A sliding panel for displaying contextual content.
-//                     </p>
-//                 </div>
+                <ContextMenu>
+                    <ContextMenuTrigger>
+                        Right-click anywhere in this area
+                    </ContextMenuTrigger>
 
-//                 {/* Basic drawer */}
-//                 <section>
-//                     <h2>Basic</h2>
+                    <ContextMenuContent>
+                        <ContextMenuItem
+                            onSelect={() =>
+                                setSelected('Edit')
+                            }
+                        >
+                            Edit
+                        </ContextMenuItem>
 
-//                     <Drawer>
-//                         <DrawerTrigger>Open Drawer</DrawerTrigger>
+                        <ContextMenuItem
+                            onSelect={() =>
+                                setSelected('Duplicate')
+                            }
+                        >
+                            Duplicate
+                        </ContextMenuItem>
 
-//                         <DrawerContent>
-//                             <DrawerHeader>
-//                                 <DrawerTitle>Account Settings</DrawerTitle>
+                        <ContextMenuSeparator />
 
-//                                 <DrawerDescription>
-//                                     Manage your account preferences and settings.
-//                                 </DrawerDescription>
-//                             </DrawerHeader>
+                        <ContextMenuItem
+                            onSelect={() =>
+                                setSelected('Share')
+                            }
+                        >
+                            Share
+                        </ContextMenuItem>
 
-//                             <div
-//                                 style={{
-//                                     padding: '0 1.5rem 1.5rem',
-//                                     'line-height': '1.6',
-//                                 }}
-//                             >
-//                                 <p>This is the main content area of the drawer.</p>
+                        <ContextMenuSeparator />
 
-//                                 <p>
-//                                     Click outside the drawer or press Escape to close
-//                                     it.
-//                                 </p>
-//                             </div>
+                        <ContextMenuItem
+                            disabled
+                        >
+                            Disabled action
+                        </ContextMenuItem>
 
-//                             <DrawerFooter>
-//                                 <DrawerClose>Close</DrawerClose>
-//                             </DrawerFooter>
-//                         </DrawerContent>
-//                     </Drawer>
-//                 </section>
+                        <ContextMenuItem
+                            onSelect={() =>
+                                setSelected('Delete')
+                            }
+                        >
+                            Delete
+                        </ContextMenuItem>
+                    </ContextMenuContent>
+                </ContextMenu>
 
-//                 {/* Sides */}
-//                 <section>
-//                     <h2>Placement</h2>
+                <div>
+                    <p
+                        style={{
+                            margin: 0,
+                            color:
+                                'var(--scn-muted-foreground)',
+                            'font-size': '0.875rem',
+                        }}
+                    >
+                        Last selection
+                    </p>
 
-//                     <div
-//                         style={{
-//                             display: 'flex',
-//                             'flex-wrap': 'wrap',
-//                             gap: '0.75rem',
-//                         }}
-//                     >
-//                         <For each={positions}>
-//                             {(position) => (
-//                                 <Drawer side={position}>
-//                                     <DrawerTrigger>
-//                                         {position.charAt(0).toUpperCase() +
-//                                             position.slice(1)}
-//                                     </DrawerTrigger>
+                    <p
+                        style={{
+                            margin: '0.25rem 0 0',
+                            'font-weight': 600,
+                        }}
+                    >
+                        {selected()}
+                    </p>
+                </div>
 
-//                                     <DrawerContent>
-//                                         <DrawerHeader>
-//                                             <DrawerTitle>
-//                                                 {position.charAt(0).toUpperCase() +
-//                                                     position.slice(1)}{' '}
-//                                                 Drawer
-//                                             </DrawerTitle>
+                <div
+                    style={{
+                        padding: '1rem',
+                        border:
+                            '1px solid var(--scn-border)',
+                        'border-radius':
+                            'var(--scn-radius-md)',
+                    }}
+                >
+                    <strong>
+                        Keyboard test
+                    </strong>
 
-//                                             <DrawerDescription>
-//                                                 This drawer opens from the {position}.
-//                                             </DrawerDescription>
-//                                         </DrawerHeader>
-
-//                                         <div
-//                                             style={{
-//                                                 padding: '0 1.5rem 1.5rem',
-//                                             }}
-//                                         >
-//                                             <p>Drawer content goes here.</p>
-//                                         </div>
-
-//                                         <DrawerFooter>
-//                                             <DrawerClose>Close</DrawerClose>
-//                                         </DrawerFooter>
-//                                     </DrawerContent>
-//                                 </Drawer>
-//                             )}
-//                         </For>
-//                     </div>
-//                 </section>
-
-//                 {/* Controlled */}
-//                 <section>
-//                     <h2>Controlled</h2>
-
-//                     <div
-//                         style={{
-//                             display: 'flex',
-//                             'align-items': 'center',
-//                             gap: '1rem',
-//                             'flex-wrap': 'wrap',
-//                         }}
-//                     >
-//                         <Button onClick={() => setControlledOpen(true)}>
-//                             Open Controlled Drawer
-//                         </Button>
-
-//                         <span
-//                             style={{
-//                                 color: 'var(--scn-muted-foreground)',
-//                                 'font-size': '0.875rem',
-//                             }}
-//                         >
-//                             State: {controlledOpen() ? 'open' : 'closed'}
-//                         </span>
-//                     </div>
-
-//                     <Drawer
-//                         open={controlledOpen()}
-//                         onOpenChange={(open) => setControlledOpen(open)}
-//                         side="right"
-//                     >
-//                         <DrawerContent>
-//                             <DrawerHeader>
-//                                 <DrawerTitle>Controlled Drawer</DrawerTitle>
-
-//                                 <DrawerDescription>
-//                                     This drawer is controlled by external SolidJS
-//                                     state.
-//                                 </DrawerDescription>
-//                             </DrawerHeader>
-
-//                             <div
-//                                 style={{
-//                                     padding: '0 1.5rem 1.5rem',
-//                                 }}
-//                             >
-//                                 <p>The parent component owns the open state.</p>
-//                             </div>
-
-//                             <DrawerFooter>
-//                                 <Button onClick={() => setControlledOpen(false)}>
-//                                     Close
-//                                 </Button>
-//                             </DrawerFooter>
-//                         </DrawerContent>
-//                     </Drawer>
-//                 </section>
-
-//                 {/* Default open */}
-//                 <section>
-//                     <h2>Default Open</h2>
-
-//                     <Drawer defaultOpen>
-//                         <DrawerContent>
-//                             <DrawerHeader>
-//                                 <DrawerTitle>Initially Open</DrawerTitle>
-
-//                                 <DrawerDescription>
-//                                     This drawer starts open because defaultOpen is
-//                                     enabled.
-//                                 </DrawerDescription>
-//                             </DrawerHeader>
-
-//                             <div
-//                                 style={{
-//                                     padding: '0 1.5rem 1.5rem',
-//                                 }}
-//                             >
-//                                 <p>
-//                                     Close this drawer and it will behave like a
-//                                     normal uncontrolled drawer.
-//                                 </p>
-//                             </div>
-
-//                             <DrawerFooter>
-//                                 <DrawerClose>Close</DrawerClose>
-//                             </DrawerFooter>
-//                         </DrawerContent>
-//                     </Drawer>
-//                 </section>
-//             </div>
-//         </div>
-//     )
-// }
+                    <p
+                        style={{
+                            margin:
+                                '0.5rem 0 0',
+                            color:
+                                'var(--scn-muted-foreground)',
+                            'font-size': '0.875rem',
+                        }}
+                    >
+                        After opening the menu, test
+                        Arrow Up, Arrow Down, Home,
+                        End, Enter, Space, and Escape.
+                    </p>
+                </div>
+            </div>
+        </div>
+    )
+}

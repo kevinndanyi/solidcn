@@ -1,5 +1,13 @@
-export { Context-menu } from './Context-menu'
+export { ContextMenu } from './ContextMenu'
+export { ContextMenuContent } from './ContextMenuContent'
+export { ContextMenuItem } from './ContextMenuItem'
+export { ContextMenuSeparator } from './ContextMenuSeparator'
+export { ContextMenuTrigger } from './ContextMenuTrigger'
 
 export type {
-  Context-menuProps,
-} from './Context-menu'
+  ContextMenuContentProps,
+  ContextMenuItemProps,
+  ContextMenuProps,
+  ContextMenuSeparatorProps,
+  ContextMenuTriggerProps,
+} from './types'
