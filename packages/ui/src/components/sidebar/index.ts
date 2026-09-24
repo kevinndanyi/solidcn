@@ -1,53 +1,57 @@
-export {
-  Sidebar,
-} from './sidebar-root'
 
 export {
-  SidebarProvider,
-} from './sidebar-provider'
+    Sidebar,
+} from './SidebarRoot'
 
 export {
-  SidebarTrigger,
-} from './sidebar-trigger'
+    SidebarProvider,
+} from './SidebarProvider'
 
 export {
-  SidebarHeader,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarGroupContent,
-  SidebarSeparator,
-} from './sidebar-sections'
+    SidebarTrigger,
+} from './SidebarTrigger'
 
 export {
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarMenuCollapsible,
-} from './sidebar-menu'
+    SidebarHeader,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarGroupContent,
+    SidebarSeparator,
+} from './SidebarSections'
 
 export {
-  useSidebar,
+    SidebarMenu,
+    SidebarMenuItem,
+    SidebarMenuButton,
+    SidebarMenuCollapsible,
+} from './SidebarMenu'
+
+export {
+    useSidebar,
 } from './context'
 
 export type {
-  SidebarContextValue,
+    SidebarContextValue,
 } from './context'
 
 export type {
-  SidebarProps,
-  SidebarProviderProps,
-  SidebarTriggerProps,
-  SidebarHeaderProps,
-  SidebarContentProps,
-  SidebarFooterProps,
-  SidebarGroupProps,
-  SidebarGroupLabelProps,
-  SidebarGroupContentProps,
-  SidebarSeparatorProps,
-  SidebarMenuProps,
-  SidebarMenuItemProps,
-  SidebarMenuButtonProps,
-  SidebarMenuCollapsibleProps,
+    SidebarProps,
+    SidebarProviderProps,
+    SidebarTriggerProps,
+
+    SidebarHeaderProps,
+    SidebarContentProps,
+    SidebarFooterProps,
+    SidebarGroupProps,
+    SidebarGroupLabelProps,
+    SidebarGroupContentProps,
+    SidebarSeparatorProps,
+
+    SidebarMenuProps,
+    SidebarMenuItemProps,
+    SidebarMenuButtonProps,
+    SidebarMenuCollapsibleProps,
 } from './types'
+

@@ -1,0 +1,23 @@
+{
+  "name": "@solidcn/pdf",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components": "./src/components/index.ts",
+    "./renderers": "./src/renderers/index.ts"
+  },
+  "dependencies": {
+    "@solidcn/styles": "workspace:*",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.0"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

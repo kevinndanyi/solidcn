@@ -16,5 +16,5 @@
     },
     "include": [
         "src"
-    ]
+, "../../apps/docs/src/components/tests/DrawerTest.tsx"    ]
 }

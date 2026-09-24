@@ -13,7 +13,7 @@ import {
 
 import {
     SidebarProvider,
-} from './sidebar-provider'
+} from './SidebarProvider'
 
 import type {
     SidebarProps,

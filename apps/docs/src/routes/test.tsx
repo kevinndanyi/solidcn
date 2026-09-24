@@ -1,252 +1,227 @@
-import type { Component } from 'solid-js'
-import { Show } from 'solid-js'
+// import { createSignal, For } from 'solid-js'
 
-import {
-    Button,
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarProvider,
-    SidebarSeparator,
-    SidebarTrigger,
-    useSidebar,
-} from '@solidcn/ui'
+// import {
+//     Button,
+//     Drawer,
+//     DrawerClose,
+//     DrawerContent,
+//     DrawerDescription,
+//     DrawerFooter,
+//     DrawerHeader,
+//     DrawerTitle,
+//     DrawerTrigger,
+// } from '@solidcn/ui'
 
-import {
-    ChartNoAxesColumn,
-    House,
-    Settings,
-    Users,
-} from 'lucide-solid'
+// export default function DrawerTestPage() {
+//     const [controlledOpen, setControlledOpen] = createSignal(false)
 
-const SidebarHeaderBrand: Component = () => {
-    const sidebar = useSidebar()
+//     const positions = ['left', 'right', 'top', 'bottom'] as const
 
-    return (
-        <div
-            style={{
-                display: 'flex',
-                'align-items': 'center',
-                'justify-content': 'space-between',
-                width: '100%',
-                gap: '0.5rem',
-            }}
-        >
-            <Show when={!sidebar.collapsed()}>
-                <strong style={{ 'white-space': 'nowrap' }}>
-                    SolidCN
-                </strong>
-            </Show>
+//     return (
+//         <div
+//             style={{
+//                 padding: '2rem',
+//                 'max-width': '900px',
+//                 margin: '0 auto',
+//             }}
+//         >
+//             <div
+//                 style={{
+//                     display: 'flex',
+//                     'flex-direction': 'column',
+//                     gap: '2rem',
+//                 }}
+//             >
+//                 <div>
+//                     <h1>Drawer</h1>
 
-            <SidebarTrigger
-                style={{
-                    'margin-left': sidebar.collapsed() ? 'auto' : '0',
-                }}
-            >
-                {sidebar.collapsed() ? '→' : '←'}
-            </SidebarTrigger>
-        </div>
-    )
-}
+//                     <p
+//                         style={{
+//                             color: 'var(--scn-muted-foreground)',
+//                         }}
+//                     >
+//                         A sliding panel for displaying contextual content.
+//                     </p>
+//                 </div>
 
-const MainContentArea: Component = () => {
-    const sidebar = useSidebar()
+//                 {/* Basic drawer */}
+//                 <section>
+//                     <h2>Basic</h2>
 
-    return (
-        <section
-            style={{
-                flex: '1',
-                'min-width': '0', // Prevents flex child from overflowing when sidebar toggles
-                padding: '2rem',
-                overflow: 'auto',
-            }}
-        >
-            <div
-                style={{
-                    display: 'flex',
-                    'align-items': 'center',
-                    'justify-content': 'space-between',
-                    gap: '1rem',
-                }}
-            >
-                <div>
-                    <h2
-                        style={{
-                            margin: '0',
-                            'font-size': 'var(--scn-text-xl)',
-                        }}
-                    >
-                        Sidebar
-                    </h2>
+//                     <Drawer>
+//                         <DrawerTrigger>Open Drawer</DrawerTrigger>
 
-                    <p
-                        style={{
-                            margin: '0.5rem 0 0',
-                            color: 'var(--scn-muted-foreground)',
-                        }}
-                    >
-                        Sidebar component test page.
-                    </p>
-                </div>
+//                         <DrawerContent>
+//                             <DrawerHeader>
+//                                 <DrawerTitle>Account Settings</DrawerTitle>
 
-                <Button onClick={() => sidebar.toggle()}>
-                    Toggle Sidebar
-                </Button>
-            </div>
+//                                 <DrawerDescription>
+//                                     Manage your account preferences and settings.
+//                                 </DrawerDescription>
+//                             </DrawerHeader>
 
-            <div
-                style={{
-                    margin: '2rem 0 0',
-                    padding: '1.5rem',
-                    background: 'var(--scn-muted)',
-                    border: '1px solid var(--scn-border)',
-                    'border-radius': 'var(--scn-radius-md)',
-                }}
-            >
-                <strong>Keyboard shortcut</strong>
+//                             <div
+//                                 style={{
+//                                     padding: '0 1.5rem 1.5rem',
+//                                     'line-height': '1.6',
+//                                 }}
+//                             >
+//                                 <p>This is the main content area of the drawer.</p>
 
-                <p
-                    style={{
-                        margin: '0.5rem 0 0',
-                        color: 'var(--scn-muted-foreground)',
-                    }}
-                >
-                    Press Ctrl+B on Windows/Linux or Cmd+B on macOS to toggle the sidebar.
-                </p>
-            </div>
+//                                 <p>
+//                                     Click outside the drawer or press Escape to close
+//                                     it.
+//                                 </p>
+//                             </div>
 
-            <div
-                style={{
-                    margin: '1rem 0 0',
-                    padding: '1.5rem',
-                    background: 'var(--scn-muted)',
-                    border: '1px solid var(--scn-border)',
-                    'border-radius': 'var(--scn-radius-md)',
-                }}
-            >
-                <strong>Current state</strong>
+//                             <DrawerFooter>
+//                                 <DrawerClose>Close</DrawerClose>
+//                             </DrawerFooter>
+//                         </DrawerContent>
+//                     </Drawer>
+//                 </section>
 
-                <p
-                    style={{
-                        margin: '0.5rem 0 0',
-                        color: 'var(--scn-muted-foreground)',
-                    }}
-                >
-                    {sidebar.mobile()
-                        ? 'Mobile'
-                        : sidebar.collapsed()
-                            ? 'Collapsed'
-                            : 'Expanded'}
-                </p>
-            </div>
-        </section>
-    )
-}
+//                 {/* Sides */}
+//                 <section>
+//                     <h2>Placement</h2>
 
-function SidebarDemo() {
-    return (
-        <SidebarProvider>
-            <div
-                style={{
-                    display: 'flex',
-                    height: '36rem',
-                    width: '100%',
-                    overflow: 'hidden',
-                    border: '1px solid var(--scn-border)',
-                    'border-radius': 'var(--scn-radius-lg)',
-                    background: 'var(--scn-background)',
-                }}
-            >
-                <Sidebar>
-                    <SidebarHeader>
-                        <SidebarHeaderBrand />
-                    </SidebarHeader>
+//                     <div
+//                         style={{
+//                             display: 'flex',
+//                             'flex-wrap': 'wrap',
+//                             gap: '0.75rem',
+//                         }}
+//                     >
+//                         <For each={positions}>
+//                             {(position) => (
+//                                 <Drawer side={position}>
+//                                     <DrawerTrigger>
+//                                         {position.charAt(0).toUpperCase() +
+//                                             position.slice(1)}
+//                                     </DrawerTrigger>
 
-                    <SidebarSeparator />
+//                                     <DrawerContent>
+//                                         <DrawerHeader>
+//                                             <DrawerTitle>
+//                                                 {position.charAt(0).toUpperCase() +
+//                                                     position.slice(1)}{' '}
+//                                                 Drawer
+//                                             </DrawerTitle>
 
-                    <SidebarContent>
-                        <SidebarGroup>
-                            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+//                                             <DrawerDescription>
+//                                                 This drawer opens from the {position}.
+//                                             </DrawerDescription>
+//                                         </DrawerHeader>
 
-                            <SidebarGroupContent>
-                                <SidebarMenu>
-                                    <SidebarMenuItem>
-                                        <SidebarMenuButton href="#" active tooltip="Dashboard">
-                                            <House size={18} aria-hidden="true" />
-                                            <span>Dashboard</span>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
+//                                         <div
+//                                             style={{
+//                                                 padding: '0 1.5rem 1.5rem',
+//                                             }}
+//                                         >
+//                                             <p>Drawer content goes here.</p>
+//                                         </div>
 
-                                    <SidebarMenuItem>
-                                        <SidebarMenuButton href="#" tooltip="Analytics">
-                                            <ChartNoAxesColumn size={18} aria-hidden="true" />
-                                            <span>Analytics</span>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
+//                                         <DrawerFooter>
+//                                             <DrawerClose>Close</DrawerClose>
+//                                         </DrawerFooter>
+//                                     </DrawerContent>
+//                                 </Drawer>
+//                             )}
+//                         </For>
+//                     </div>
+//                 </section>
 
-                                    <SidebarMenuItem>
-                                        <SidebarMenuButton href="#" tooltip="Users">
-                                            <Users size={18} aria-hidden="true" />
-                                            <span>Users</span>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                </SidebarMenu>
-                            </SidebarGroupContent>
-                        </SidebarGroup>
+//                 {/* Controlled */}
+//                 <section>
+//                     <h2>Controlled</h2>
 
-                        <SidebarGroup>
-                            <SidebarGroupLabel>Management</SidebarGroupLabel>
+//                     <div
+//                         style={{
+//                             display: 'flex',
+//                             'align-items': 'center',
+//                             gap: '1rem',
+//                             'flex-wrap': 'wrap',
+//                         }}
+//                     >
+//                         <Button onClick={() => setControlledOpen(true)}>
+//                             Open Controlled Drawer
+//                         </Button>
 
-                            <SidebarGroupContent>
-                                <SidebarMenu>
-                                    <SidebarMenuItem>
-                                        <SidebarMenuButton href="#" tooltip="Settings">
-                                            <Settings size={18} aria-hidden="true" />
-                                            <span>Settings</span>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                </SidebarMenu>
-                            </SidebarGroupContent>
-                        </SidebarGroup>
-                    </SidebarContent>
+//                         <span
+//                             style={{
+//                                 color: 'var(--scn-muted-foreground)',
+//                                 'font-size': '0.875rem',
+//                             }}
+//                         >
+//                             State: {controlledOpen() ? 'open' : 'closed'}
+//                         </span>
+//                     </div>
 
-                    <SidebarFooter>
-                        <SidebarSeparator />
+//                     <Drawer
+//                         open={controlledOpen()}
+//                         onOpenChange={(open) => setControlledOpen(open)}
+//                         side="right"
+//                     >
+//                         <DrawerContent>
+//                             <DrawerHeader>
+//                                 <DrawerTitle>Controlled Drawer</DrawerTitle>
 
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton href="#" tooltip="Profile">
-                                    <Users size={18} aria-hidden="true" />
-                                    <span>Kevin</span>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarFooter>
-                </Sidebar>
+//                                 <DrawerDescription>
+//                                     This drawer is controlled by external SolidJS
+//                                     state.
+//                                 </DrawerDescription>
+//                             </DrawerHeader>
 
-                <MainContentArea />
-            </div>
-        </SidebarProvider>
-    )
-}
+//                             <div
+//                                 style={{
+//                                     padding: '0 1.5rem 1.5rem',
+//                                 }}
+//                             >
+//                                 <p>The parent component owns the open state.</p>
+//                             </div>
 
-export default function TestPage() {
-    return (
-        <main
-            style={{
-                padding: '2rem',
-                'max-width': '72rem',
-                margin: '0 auto',
-            }}
-        >
-            <SidebarDemo />
-        </main>
-    )
-}
+//                             <DrawerFooter>
+//                                 <Button onClick={() => setControlledOpen(false)}>
+//                                     Close
+//                                 </Button>
+//                             </DrawerFooter>
+//                         </DrawerContent>
+//                     </Drawer>
+//                 </section>
+
+//                 {/* Default open */}
+//                 <section>
+//                     <h2>Default Open</h2>
+
+//                     <Drawer defaultOpen>
+//                         <DrawerContent>
+//                             <DrawerHeader>
+//                                 <DrawerTitle>Initially Open</DrawerTitle>
+
+//                                 <DrawerDescription>
+//                                     This drawer starts open because defaultOpen is
+//                                     enabled.
+//                                 </DrawerDescription>
+//                             </DrawerHeader>
+
+//                             <div
+//                                 style={{
+//                                     padding: '0 1.5rem 1.5rem',
+//                                 }}
+//                             >
+//                                 <p>
+//                                     Close this drawer and it will behave like a
+//                                     normal uncontrolled drawer.
+//                                 </p>
+//                             </div>
+
+//                             <DrawerFooter>
+//                                 <DrawerClose>Close</DrawerClose>
+//                             </DrawerFooter>
+//                         </DrawerContent>
+//                     </Drawer>
+//                 </section>
+//             </div>
+//         </div>
+//     )
+// }
